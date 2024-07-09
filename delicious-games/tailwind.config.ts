@@ -11,6 +11,9 @@ const config: Config = {
       fontFamily: {
         titillium: ["var(--font-titillium)", "sans-serif"],
       },
+      transitionDuration: {
+        "350": "350ms",
+      },
     },
   },
   plugins: [],

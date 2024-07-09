@@ -20,11 +20,11 @@ export default function LangSwitch() {
 
   return (
     <div
-      className={`${titillium.variable} my-1 order-first md:order-none w-full md:w-auto font-titillium`}
+      className={`${titillium.variable} h-8 lg:auto flex mr-2 order-first lg:order-none w-full lg:w-auto font-titillium`}
     >
       <button
         onClick={toggleLanguage}
-        className="inline-flex items-center w-18 ml-1 text-xs text-slate-300 hover:text-slate-100 uppercase"
+        className="inline-flex self-center justify-center items-center w-18 mx-auto lg:ml-1 text-xs text-slate-300 hover:text-slate-100 uppercase"
       >
         <Image
           src={language === "en" ? "/icons/EN.png" : "/icons/CZ.png"}
