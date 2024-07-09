@@ -26,24 +26,6 @@ export default function NavLinks() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (window.innerWidth >= 1024) {
-  //       setIsMenuOpen(true);
-  //     } else {
-  //       setIsMenuOpen(false);
-  //     }
-  //   };
-
-  //   handleResize();
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   return (
     <>
       <div className="lg:hidden text-right">
