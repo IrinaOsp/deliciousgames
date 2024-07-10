@@ -1,9 +1,8 @@
 "use client";
 
 /* eslint-disable react/no-unescaped-entities */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Titillium_Web } from "next/font/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
@@ -11,13 +10,6 @@ import { faHeartCircleCheck } from "@fortawesome/free-solid-svg-icons/faHeartCir
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
 import { faPhone } from "@fortawesome/free-solid-svg-icons/faPhone";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
-
-const titillium = Titillium_Web({
-  variable: "--font-titillium",
-  weight: "400",
-  style: "normal",
-  subsets: ["latin"],
-});
 
 export default function NavLinks() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +45,7 @@ export default function NavLinks() {
         </div>
 
         <ul
-          className={`${titillium.variable} p-3 list-none text-nowrap flex flex-col items-start lg:flex-row lg:items-center text-slate-300 font-titillium uppercase text-base
+          className={`p-3 list-none text-nowrap flex flex-col items-start lg:flex-row lg:items-center text-slate-300 uppercase text-base
           h-full lg:bg-none bg-gradient-to-br from-[#29323c] to-[#485563] shadow-[0_15px_90px_-10px_rgba(0,0,0,0.2)]
           `}
         >
