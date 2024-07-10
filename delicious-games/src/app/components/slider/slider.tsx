@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import { Red_Hat_Display } from "next/font/google";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slider.css";
@@ -26,13 +25,6 @@ const games = [
     linkToGame: "/woodcraft",
   },
 ];
-
-const redHat = Red_Hat_Display({
-  variable: "--font-redHat",
-  weight: "700",
-  style: "normal",
-  subsets: ["latin"],
-});
 
 export default function SliderWrapper() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -64,7 +56,7 @@ export default function SliderWrapper() {
 
   return (
     <div
-      className={`${redHat.variable} slider-container max-h-screen max-w-full w-full overflow-hidden`}
+      className={`font-redHat slider-container max-h-screen max-w-full w-full overflow-hidden`}
     >
       <Slider {...settings} className="max-w-full w-full">
         {games.map((game, index) => (
@@ -85,7 +77,7 @@ export default function SliderWrapper() {
             }`}
             >
               {game.topBtn && (
-                <span className="block w-max mx-auto font-bold uppercase px-4 py-1 bg-amber-200 mb-4">
+                <span className="font-redHat block w-max mx-auto font-bold uppercase px-4 py-1 bg-amber-200 mb-4">
                   {game.topBtn}
                 </span>
               )}

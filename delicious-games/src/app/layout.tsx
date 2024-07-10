@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Titillium_Web } from "next/font/google";
 import "./globals.css";
+import { titillium } from "./fonts";
 import Header from "./components/header/header";
-
-const titillium = Titillium_Web({
-  variable: "--font-titillium",
-  weight: ["400", "700"],
-  style: "normal",
-  subsets: ["latin"],
-});
+import Footer from "./components/footer/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,6 +19,7 @@ export default function RootLayout({
       <body className={titillium.className}>
         <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
