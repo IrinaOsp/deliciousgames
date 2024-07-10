@@ -16,9 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={titillium.className}>
+      <body
+        className={`${titillium.className} pt-[140px] min-h-screen flex flex-col`}
+      >
         <Header />
-        <main>{children}</main>
+        <main className="max-w-7xl mx-auto text-zinc-600">{children}</main>
         <Footer />
       </body>
     </html>
