@@ -11,7 +11,7 @@ export default function Contact() {
       >
         <ContactCards />
       </div>
-      <div className="w-2/3">
+      <div className="w-2/3 p-2.5">
         <PageHeading title={"Contact us"} headingLvl={3} fontSize={20} />
         <ContactForm />
       </div>

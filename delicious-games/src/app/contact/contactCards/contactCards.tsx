@@ -48,9 +48,9 @@ export default function ContactCards() {
           </h5>
           <p className="text-[13px]">
             {INVOICE_DATA.map(({ item, value }) => (
-              <p key={item}>
+              <span key={item} className="block">
                 <strong> {item}</strong>: <span> {value}</span>
-              </p>
+              </span>
             ))}
           </p>
         </div>
@@ -63,9 +63,9 @@ export default function ContactCards() {
           <h5 className="uppercase font-bold text-sm font-redHat">CONTACTS</h5>
           <p className="text-[13px]">
             {EMAILS.map(({ item, value }) => (
-              <p key={item}>
+              <span key={item} className="block">
                 <strong> {item}</strong>: <span> {value}</span>
-              </p>
+              </span>
             ))}
           </p>
         </div>
