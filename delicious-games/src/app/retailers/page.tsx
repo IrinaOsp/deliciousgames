@@ -4,7 +4,7 @@ import RetailerSection from "./retailerSection/retailerSection";
 
 export default function Retailers() {
   return (
-    <div className="p-5 mb-16">
+    <div className="p-5 mb-16 max-w-7xl mx-auto">
       <PageHeading title={"Retailers"} />
       <div className="flex flex-wrap gap-2.5">
         <div className="pl-5 flex-1 border-l-[1px] border-zinc-300">

@@ -2,7 +2,7 @@ import PageHeading from "@/app/components/UI/pageHeading/pageHeading";
 
 export default function AboutUs() {
   return (
-    <section className="p-5">
+    <section className="max-w-7xl mx-auto p-5">
       <PageHeading title={"About Us"} />
       <p className="mb-[15px] text-[15px]">
         <b>Delicious Games</b> is a project that was founded for the purpose of

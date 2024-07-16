@@ -11,17 +11,11 @@ import PageHeading from "../UI/pageHeading/pageHeading";
 
 export default function Footer() {
   return (
-    <footer className="w-screen bg-zinc-100 mt-auto mb-0">
+    <footer className="w-full bg-zinc-100 mt-auto mb-0">
       <div className="flex flex-wrap gap-5 sm:flex-nowrap container mx-0 pt-[30px] px-5 pb-[10px] lg:mx-auto justify-between items-start lg:min-w-max lg:max-w-7xl lg:gap-5 ">
         {FOOTER_MENU_LINKS.map(({ section, links }) => (
           <div key={section} className="mb-5">
             <PageHeading title={section} headingLvl={3} fontSize={16} />
-            <h3
-              className={`${redHat.variable} uppercase font-bold text-base mb-4 font-redHat text-zinc-600
-          after:block after:w-[100px] after:h-[1px] after:bg-pink-600 after:mt-[10px]`}
-            >
-              {section}
-            </h3>
             <ul>
               {links.map(({ page, link }) => (
                 <li key={link} className="capitalize hover:text-pink-600">
