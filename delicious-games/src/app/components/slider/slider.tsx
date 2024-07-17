@@ -6,9 +6,7 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slider.css";
-import Link from "next/link";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MainButton from "../UI/button/mainButton";
 
 const games = [
   {
@@ -94,14 +92,7 @@ export default function SliderWrapper() {
                   height={400}
                 />
               </div>
-              <Link
-                href={game.linkToGame}
-                className="block mx-auto mt-1/4 w-max font-normal text-sm text-white uppercase p-3 bg-pink-600 hover:bg-slate-500
-                opacity-0 animate-fadeIn delay-400"
-              >
-                <span>{game.bottomBtn}</span>
-                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-              </Link>
+              <MainButton link={game.linkToGame} text={game.bottomBtn} />
             </div>
           </div>
         ))}
