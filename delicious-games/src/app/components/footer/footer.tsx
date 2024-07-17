@@ -15,7 +15,11 @@ export default function Footer() {
       <div className="flex flex-wrap gap-5 sm:flex-nowrap container mx-0 pt-[30px] px-5 pb-[10px] lg:mx-auto justify-between items-start lg:min-w-max lg:max-w-7xl lg:gap-5 ">
         {FOOTER_MENU_LINKS.map(({ section, links }) => (
           <div key={section} className="mb-5">
-            <PageHeading title={section} headingLvl={3} fontSize={16} />
+            <PageHeading
+              title={section}
+              headingLvl={3}
+              styles={{ fontSize: "16px" }}
+            />
             <ul>
               {links.map(({ page, link }) => (
                 <li key={link} className="capitalize hover:text-pink-600">
