@@ -8,6 +8,10 @@ export const titleToPath: (title: string) => string = (title) => {
     .split(/[^a-zA-Z0-9-]/)[0];
 };
 
+export const pathToTitle: (path: string) => string = (path) => {
+  return path.trim().toLowerCase().replace(/-/g, " ");
+};
+
 export const trimText = (text: string, maxLength: number): string => {
   return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 };
