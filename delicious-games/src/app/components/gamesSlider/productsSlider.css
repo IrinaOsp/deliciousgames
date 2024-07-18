@@ -1,0 +1,26 @@
+.slick-arrow.slick-arrow-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(15, 86, 132);
+  width: 25px;
+  height: 25px;
+  opacity: 0.7;
+}
+.slick-arrow.slick-arrow-custom:hover {
+  opacity: 1;
+  background-color: rgb(15, 86, 132);
+}
+.slick-arrow.slick-arrow-custom::before {
+  border: none;
+  line-height: 2;
+  content: "<";
+}
+.slick-arrow.slick-next.slick-arrow-custom::before {
+  content: ">";
+}
+@media screen and (max-width: 640px) {
+  .slick-arrow.slick-arrow-custom {
+    display: none !important;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -28,7 +28,7 @@ export default function SliderWrapper() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [animate, setAnimate] = useState(false);
 
-  const settings = {
+  const settings: Settings = {
     dots: true,
     fade: true,
     dotsClass: "slick-dots-custom",
@@ -38,6 +38,7 @@ export default function SliderWrapper() {
     autoplaySpeed: 20000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    swipeToSlide: true,
     waitForAnimate: true,
     beforeChange: () => {
       setAnimate(false);
