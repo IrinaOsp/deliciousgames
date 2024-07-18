@@ -1,21 +1,74 @@
 "use client";
 
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useRef, useState, useLayoutEffect, useEffect } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
-import { faHeartCircleCheck } from "@fortawesome/free-solid-svg-icons/faHeartCircleCheck";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
-import { faPhone } from "@fortawesome/free-solid-svg-icons/faPhone";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+import {
+  faBars,
+  faCartShopping,
+  faHeartCircleCheck,
+  faPenToSquare,
+  faPhone,
+  faTimes,
+  IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
+import { MENU_LINKS } from "@/data/data";
+import CatalogLinks from "../catalogLinks/catalogLinks";
+import PlusButton from "../../UI/plusButton/plusButton";
+import DropDownMenu from "../dropDownMenu/dropDownMenu";
+
+const MENU_ICONS: IconDefinition[] = [
+  faBars,
+  faHeartCircleCheck,
+  faCartShopping,
+  faPhone,
+  faPenToSquare,
+];
 
 export default function NavLinks() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const mobileMenu = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousedown", closeOpenedMenu);
+    window.addEventListener("touchstart", closeOpenedMenu);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.addEventListener("mousedown", closeOpenedMenu);
+      window.addEventListener("touchstart", closeOpenedMenu);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeOpenedMenu = (e: MouseEvent | TouchEvent) => {
+    if (
+      isMenuOpen &&
+      mobileMenu.current &&
+      !mobileMenu.current.contains(e.target as Node)
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (!isMenuOpen) setDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
   };
 
   return (
@@ -30,6 +83,7 @@ export default function NavLinks() {
       </div>
 
       <div
+        ref={mobileMenu}
         className={`${
           isMenuOpen ? "block translate-x-0" : "translate-x-[-100%]"
         } fixed lg:static lg:translate-x-0 z-50 max-w-full h-full top-0 left-0 w-[85%] md:w-[40%]
@@ -49,64 +103,61 @@ export default function NavLinks() {
           h-full lg:bg-none bg-gradient-to-br from-[#29323c] to-[#485563] shadow-[0_15px_90px_-10px_rgba(0,0,0,0.2)]
           `}
         >
-          <li className="flex items-center mr-4 px-2 py-[10px] hover:text-slate-100 font-bold text-lg">
-            <Link href="/catalog" className="inline-flex items-center">
-              <FontAwesomeIcon icon={faBars} className="w-5 inline mr-2" />
-              <span className="pr-4 border-r-[1px] border-dotted">
-                Our Games
-              </span>
-            </Link>
-          </li>
-          <li className="lg:lg:ml-5 p-2 hover:text-slate-100 group">
-            <FontAwesomeIcon
-              icon={faHeartCircleCheck}
-              className="w-4 inline mr-1 group-hover:text-pink-500"
-            />
-            <Link
-              href="/about-us"
-              className="hover:underline hover:decoration-pink-500 underline-offset-2"
-            >
-              About Us
-            </Link>
-          </li>
-          <li className="lg:lg:ml-5 p-2 hover:text-slate-100 group">
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              className="w-4 inline mr-1 group-hover:text-pink-500"
-            />
-            <Link
-              href="/retailers"
-              className="hover:underline hover:decoration-pink-500 underline-offset-2"
-            >
-              {" "}
-              Sellers
-            </Link>
-          </li>
-          <li className="lg:lg:ml-5 p-2 hover:text-slate-100 group">
-            <FontAwesomeIcon
-              icon={faPhone}
-              className="w-4 inline mr-1 group-hover:text-pink-500"
-            />
-            <Link
-              href="/contact"
-              className="hover:underline hover:decoration-pink-500 underline-offset-2"
-            >
-              {" "}
-              Contact
-            </Link>
-          </li>
-          <li className="lg:lg:ml-5 p-2 hover:text-slate-100 group">
-            <FontAwesomeIcon
-              icon={faPenToSquare}
-              className="w-4 inline mr-1 group-hover:text-pink-500"
-            />
-            <Link
-              href="/blog"
-              className="hover:underline hover:decoration-pink-500 underline-offset-2"
-            >
-              Author's blog
-            </Link>
-          </li>
+          {MENU_LINKS.map(({ page, link }, ind) =>
+            ind === 0 ? (
+              <li
+                key={page}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className={`${
+                  isMenuOpen && "w-full justify-between"
+                } relative flex flex-wrap items-center mr-4 px-2 py-[10px] hover:text-slate-100 font-bold text-lg`}
+              >
+                <Link
+                  href={link}
+                  className={`${
+                    isMenuOpen && "p-2.5"
+                  } inline-flex items-center`}
+                >
+                  <FontAwesomeIcon
+                    icon={MENU_ICONS[ind]}
+                    className="w-5 inline mr-2"
+                  />
+                  <span className="pr-4 border-r-[1px] border-dotted">
+                    {page}
+                  </span>
+                </Link>
+                {isMenuOpen && (
+                  <PlusButton
+                    state={isCatalogOpen}
+                    dispatch={setIsCatalogOpen}
+                  />
+                )}
+                {isCatalogOpen && <CatalogLinks />}
+                {isDropdownVisible && (
+                  <DropDownMenu
+                    setDropDownMenuVisibility={setDropdownVisible}
+                  />
+                )}
+              </li>
+            ) : (
+              <li
+                key={page}
+                className="lg:lg:ml-5 p-2 hover:text-slate-100 group"
+              >
+                <FontAwesomeIcon
+                  icon={MENU_ICONS[ind]}
+                  className="w-4 inline mr-1 group-hover:text-pink-500"
+                />
+                <Link
+                  href={link}
+                  className="hover:underline hover:decoration-pink-500 underline-offset-2"
+                >
+                  {page}
+                </Link>
+              </li>
+            )
+          )}
         </ul>
       </div>
     </>

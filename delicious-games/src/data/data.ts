@@ -8,6 +8,14 @@ export enum Routes {
   MISSING_PARTS = "/missing-parts",
 }
 
+export const MENU_LINKS = [
+  { page: "Our Games", link: Routes.CATALOGUE },
+  { page: "About Us", link: Routes.ABOUT },
+  { page: "Sellers", link: Routes.SELLERS },
+  { page: "Contact Us", link: Routes.CONTACT },
+  { page: "Author's Blog", link: Routes.BLOG },
+];
+
 export const FOOTER_MENU_LINKS = [
   {
     section: "Delicious Menu",
