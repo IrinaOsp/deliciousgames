@@ -10,10 +10,10 @@ export default function ContactCards() {
   return (
     <>
       <div className="flex items-center justify-start p-2.5 rounded-[5px] bg-white">
-        <div className="mr-2.5 flex items-center justify-center size-[60px] rounded-full bg-sky-800">
+        <div className="mr-2.5 flex items-center justify-center size-10 min-[378px]:size-[60px] rounded-full bg-sky-800">
           <FontAwesomeIcon
             icon={faLocationDot}
-            className="text-white text-3xl"
+            className="text-white text-xl min-[378px]:text-3xl"
           />
         </div>
         <div>
@@ -36,10 +36,10 @@ export default function ContactCards() {
         </div>
       </div>
       <div className={`flex items-center justify-start p-2.5 bg-white`}>
-        <div className="mr-2.5 flex items-center justify-center size-[60px] rounded-full bg-sky-800">
+        <div className="mr-2.5 flex items-center justify-center size-10 min-[378px]:size-[60px] rounded-full bg-sky-800">
           <FontAwesomeIcon
             icon={faDollarSign}
-            className="text-white text-3xl"
+            className="text-white text-xl min-[378px]:text-3xl"
           />
         </div>
         <div>
@@ -55,16 +55,23 @@ export default function ContactCards() {
           </p>
         </div>
       </div>
-      <div className={`flex items-center justify-start p-2.5 bg-white`}>
-        <div className="mr-2.5 flex items-center justify-center size-[60px] rounded-full bg-sky-800">
-          <FontAwesomeIcon icon={faEnvelope} className="text-white text-3xl" />
+      <div
+        className={`flex max-w-full items-center justify-start p-2.5 bg-white`}
+      >
+        <div className="mr-2.5 flex items-center justify-center size-10 min-[378px]:size-[60px] rounded-full bg-sky-800">
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            className="text-white text-xl min-[378px]:text-3xl"
+          />
         </div>
         <div>
           <h5 className="uppercase font-bold text-sm font-redHat">CONTACTS</h5>
           <p className="text-[13px]">
             {EMAILS.map(({ item, value }) => (
-              <span key={item} className="block">
-                <strong> {item}</strong>: <span> {value}</span>
+              <span key={item} className="flex flex-wrap">
+                <strong className="block">{item}</strong>
+                <span>: </span>
+                <span>{value}</span>
               </span>
             ))}
           </p>

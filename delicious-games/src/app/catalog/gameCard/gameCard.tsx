@@ -16,9 +16,9 @@ export default function GameCard({
     <div
       className={`flex ${
         view === "grid" ? "flex-col" : "flex-row w-full"
-      } gap-5 bg-white p-2.5 group`}
+      } sm:flex-nowrap flex-wrap max-sm:w-1/2 justify-center gap-5 bg-white p-2.5 group`}
     >
-      <div className="size-[250px] relative">
+      <div className="sm:size-[250px] relative">
         <Link href={`/catalog/${titleToPath(title)}`}>
           {label && (
             <div className="absolute z-10 top-0 left-0 w-full bg-transparent text-white text-xs flex items-center justify-end">
@@ -35,7 +35,7 @@ export default function GameCard({
               </span>
             </div>
           )}
-          <div className="size-[250px]">
+          <div className="w-full h-auto sm:size-[250px]">
             <Image
               src={image}
               alt="Game Cover"

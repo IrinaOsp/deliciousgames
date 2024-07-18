@@ -46,13 +46,13 @@ export default async function DetailedPage({
 
   return (
     <div
-      className="size-full bg-no-repeat bg-fixed"
+      className="size-full bg-no-repeat bg-fixed bg-slate-600"
       style={{ backgroundImage: `url(${data.backgroundImage})` }}
     >
       <div className="max-w-7xl mx-auto p-5 xl:px-0">
         <section className="mb-11">
-          <div className="flex">
-            <div className="w-1/2 h-auto">
+          <div className="flex max-sm:flex-col">
+            <div className="sm:w-1/2 h-auto">
               <Image
                 src={data.image}
                 alt={data.title}
@@ -61,12 +61,14 @@ export default async function DetailedPage({
                 className="block w-full h-auto"
               />
             </div>
-            <div className="w-1/2 ml-4">
+            <div className="sm:w-1/2 ml-4">
               <PageHeading
                 title={data.title}
                 styles={{ color: "white", fontSize: "40px" }}
               />
-              <p className="my-5 text-[15px] text-white ">{data.description}</p>
+              <p className="my-5 text-[15px] text-white [text-shadow:_2px_2px_5px_rgb(9_9_9)]">
+                {data.description}
+              </p>
               <TechnicalInfo
                 players={data.players}
                 playingTime={data.playingTime}

@@ -34,7 +34,9 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-zinc-800">
       <div className="mb-2 flex flex-wrap gap-5 justify-start items-center">
-        <label className="block max-w-[150px] w-full">Your Name *</label>
+        <label className="block max-w-24 min-[500px]:max-w-[150px] w-full">
+          Your Name *
+        </label>
         <input
           {...register("name", { required: "Name is required" })}
           type="text"
@@ -48,7 +50,9 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-2 flex flex-wrap gap-5 justify-start items-center">
-        <label className="block max-w-[150px] w-full">Email *</label>
+        <label className="block max-w-24 min-[500px]:max-w-[150px] w-full">
+          Email *
+        </label>
         <input
           type="email"
           placeholder="Your Email"
@@ -62,7 +66,9 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-2 flex flex-wrap gap-5 justify-start items-center">
-        <label className="block max-w-[150px] w-full">Message *</label>
+        <label className="block max-w-24 min-[500px]:max-w-[150px] w-full">
+          Message *
+        </label>
         <textarea
           {...register("message", { required: "Message is required" })}
           placeholder="Message"
@@ -76,8 +82,8 @@ export default function ContactForm() {
       </div>
 
       <div className="mb-4 flex flex-wrap gap-5 justify-start items-center">
-        <label className="block max-w-[150px] w-full">
-          Please complete the captcha validation below *
+        <label className="block min-[500px]:max-w-[150px] w-full">
+          Please complete the captcha validation below&nbsp;*
         </label>
         <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}

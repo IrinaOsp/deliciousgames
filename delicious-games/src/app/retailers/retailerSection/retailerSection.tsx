@@ -32,7 +32,8 @@ export default function RetailerSection({
               <b>{entry.partnerName}</b>
               {" - "}
               <a
-                href={entry.link}
+                href={`http://${entry.link}`}
+                target="_blank"
                 className="underline text-sky-900 hover:text-pink-600"
               >
                 {entry.link}

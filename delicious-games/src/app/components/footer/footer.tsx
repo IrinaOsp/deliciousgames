@@ -51,11 +51,11 @@ export default function Footer() {
         </div>
       </div>
       <div className="w-full bg-pink-600">
-        <div className="flex justify-between items-center container p-[10px] lg:mx-auto text-white text-sm">
+        <div className="flex flex-wrap gap-5 justify-between items-center container p-[10px] max-w-7xl mx-auto text-white text-sm">
           <p>
             © 2018-2020 Kateřina Suchá - Delicious Games, All rights reserved.
           </p>
-          <p>Developed by artbox </p>
+          <p className="text-right">Developed by artbox </p>
         </div>
       </div>
     </footer>

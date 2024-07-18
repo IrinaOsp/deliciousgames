@@ -73,7 +73,7 @@ export default function Catalog() {
             <div className="">
               <label
                 htmlFor="input-sort"
-                className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs"
+                className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs max-[500px]:hidden"
               >
                 Sort By:
               </label>
@@ -94,7 +94,7 @@ export default function Catalog() {
             <div>
               <label
                 htmlFor="input-limit"
-                className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs"
+                className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs max-[500px]:hidden"
               >
                 Show:{" "}
               </label>
@@ -116,7 +116,7 @@ export default function Catalog() {
         </div>
 
         <div
-          className={`flex flex-wrap ${
+          className={`flex flex-wrap justify-start ${
             layout === "list" ? "flex-col" : "flex-row"
           }`}
         >

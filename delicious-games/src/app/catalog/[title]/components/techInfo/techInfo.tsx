@@ -11,7 +11,7 @@ export default function TechnicalInfo({
   minAge: number;
 }) {
   return (
-    <div className="p-[5px] flex gap-2.5">
+    <div className="p-[5px] flex max-xl:flex-col gap-2.5">
       <div className="flex-1 bg-zinc-200 p-[15px] flex rounded-[5px] gap-2.5">
         <div className="size-10 bg-pink-600 rounded-full text-white flex justify-center items-center">
           <FontAwesomeIcon icon={faUser} />
