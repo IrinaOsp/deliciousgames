@@ -1,5 +1,5 @@
 import PageHeading from "../../components/UI/pageHeading/pageHeading";
-import TechnicalInfo from "./components/techInfo/techInfo";
+import Specification from "./components/specification/specification";
 import GameComponents from "./components/gameComponents/gameComponents";
 import RulesSection from "./components/rules/rulesSection";
 import SellOffer from "@/app/components/sellOffer/sellOffer";
@@ -119,7 +119,7 @@ export default async function DetailedPage({
               <p className="my-5 text-[15px] text-white [text-shadow:_2px_2px_5px_rgb(9_9_9)]">
                 {data.description}
               </p>
-              <TechnicalInfo
+              <Specification
                 players={data.specification.playersNumber}
                 playingTime={data.specification.playingTime}
                 minAge={data.specification.minAge}
