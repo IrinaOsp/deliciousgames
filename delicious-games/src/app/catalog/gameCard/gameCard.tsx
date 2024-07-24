@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import { titleToPath, trimText } from "@/app/utils/utils";
+import { titleToPath, trimText } from "../../../utils/utils";
 import { GameCardInfo } from "@/types/types";
+import { StrapiImage } from "@/app/components/UI/StrapiImage/StrapiImage";
 
 export default function GameCard({
   view,
@@ -36,7 +36,7 @@ export default function GameCard({
             </div>
           )}
           <div className="w-full h-auto sm:size-[250px]">
-            <Image
+            <StrapiImage
               src={image}
               alt="Game Cover"
               width={250}
@@ -50,7 +50,9 @@ export default function GameCard({
       <div>
         <Link
           href={`/catalog/${titleToPath(title)}`}
-          className="whitespace-nowrap font-redHat font-bold text-lg text-sky-900 hover:text-pink-600 duration-200"
+          className={`${
+            view === "grid" ? "w-full max-w-60" : "w-auto"
+          } inline-block font-redHat text-center font-bold text-lg text-sky-900 hover:text-pink-600 duration-200`}
         >
           {title}
         </Link>

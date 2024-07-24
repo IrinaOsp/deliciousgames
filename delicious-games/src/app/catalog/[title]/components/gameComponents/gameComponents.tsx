@@ -1,5 +1,5 @@
-import Image from "next/image";
 import PageHeading from "@/app/components/UI/pageHeading/pageHeading";
+import { StrapiImage } from "@/app/components/UI/StrapiImage/StrapiImage";
 
 export default function GameComponents({ img }: { img: string }) {
   return (
@@ -10,9 +10,9 @@ export default function GameComponents({ img }: { img: string }) {
         styles={{ fontSize: "14px", color: "white" }}
       />
       <div className="w-full h-auto">
-        <Image
+        <StrapiImage
           src={img}
-          alt="Components"
+          alt="Components image"
           width={1280}
           height={675}
           className="block w-full h-auto"

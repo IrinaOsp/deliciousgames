@@ -31,7 +31,11 @@ export default function TechnicalInfo({
           <span className="block uppercase text-sm font-bold">
             Playing time:
           </span>
-          <span className="block text-base">{playingTime}</span>
+          <span className="block text-base">
+            {playingTime.endsWith("player")
+              ? playingTime
+              : `${playingTime} min.`}
+          </span>
         </div>
       </div>
       <div className="flex-1 bg-zinc-200 p-[15px] flex rounded-[5px] gap-2.5">
@@ -40,7 +44,7 @@ export default function TechnicalInfo({
         </div>
         <div>
           <span className="block uppercase text-sm font-bold">Age:</span>
-          <span className="block text-base">{`${minAge} +`}</span>
+          {minAge && <span className="block text-base">{`${minAge} +`}</span>}
         </div>
       </div>
     </div>

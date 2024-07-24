@@ -1,10 +1,20 @@
 import PageHeading from "@/app/components/UI/pageHeading/pageHeading";
-import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { faFilePdf, faGift } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getStrapiMedia } from "@/utils/strapi";
 
 type Rules = {
+  id: number;
   name: string;
-  link: string;
+  isBonus: boolean;
+  document: {
+    data: {
+      id: number;
+      attributes: {
+        url: string;
+      };
+    };
+  };
 };
 
 export default function RulesSection({ rules }: { rules: Rules[] }) {
@@ -18,15 +28,18 @@ export default function RulesSection({ rules }: { rules: Rules[] }) {
       <ul>
         {rules.map((rule) => (
           <li
-            key={rule.name}
+            key={rule.id}
             className="block w-full border-b border-red-500 pt-1.5 pb-0.5 pl-2 cursor-pointer"
           >
             <FontAwesomeIcon
-              icon={faFilePdf}
-              className="text-pink-600 mr-2.5"
+              icon={rule.isBonus ? faGift : faFilePdf}
+              className={`${
+                rule.isBonus ? "text-amber-400" : "text-pink-600"
+              } mr-2.5`}
             />
             <a
-              href={rule.link}
+              href={getStrapiMedia(rule.document.data.attributes.url) || "#"}
+              target="_blank"
               className="text-slate-50 text-base hover:text-pink-600 hover:underline transition-all"
             >
               {rule.name}

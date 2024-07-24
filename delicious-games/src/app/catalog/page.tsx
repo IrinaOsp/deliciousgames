@@ -2,12 +2,35 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import qs from "qs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PageHeading from "../components/UI/pageHeading/pageHeading";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { SHOW_OPTIONS, SORT_OPTIONS } from "@/data/catalogData";
 import GameCard from "./gameCard/gameCard";
-import { sortData } from "../utils/utils";
+import { sortData } from "../../utils/utils";
+import { getStrapiURL } from "../../utils/strapi";
+
+const gamesQuery = qs.stringify(
+  {
+    fields: ["title", "description"],
+    populate: {
+      price: {
+        fields: ["currency", "price"],
+      },
+      images: {
+        populate: {
+          box: {
+            fields: ["alternativeText", "url"],
+          },
+        },
+      },
+    },
+  },
+  {
+    encodeValuesOnly: true,
+  }
+);
 
 export default function Catalog() {
   const [layout, setLayout] = useState<"grid" | "list">("list");
@@ -23,28 +46,32 @@ export default function Catalog() {
 
   const handleSort = (target: HTMLSelectElement) => {
     setSort(target.value);
-    sortData(data, target.value);
+    sortData(data, sort);
   };
 
   const handleLimit = (target: HTMLSelectElement) => {
     setLimit(target.value);
-    data.slice(0, Number(target.value));
+    data.slice(0, Number(limit));
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function getData(path: string) {
       setIsLoading(true);
       try {
-        const response = await fetch("https://your-api-endpoint.com/games");
-        const data = await response.json();
-        setData(data);
+        const baseUrl = getStrapiURL();
+        const url = new URL(path, baseUrl);
+        url.search = gamesQuery;
+        const res = await fetch(url.href).then((res) => res.json());
+        setData(res.data);
       } catch (error) {
-        setError((error as Error)?.message || "Something went wrong");
+        setError((error as Error)?.message || "Failed to fetch data");
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
-    };
-    // fetchData();
+    }
+
+    getData("/api/games");
   }, []);
 
   return (
@@ -64,8 +91,12 @@ export default function Catalog() {
                 onClick={() => handleLayout("grid")}
               />
             </button>
-            <button title="List" onClick={() => handleLayout("list")}>
-              <FontAwesomeIcon icon={faList} className="text-zinc-800" />
+            <button
+              title="List"
+              onClick={() => handleLayout("list")}
+              className="pt-[1px]"
+            >
+              <FontAwesomeIcon icon={faList} className="text-zinc-700" />
             </button>
           </div>
 
@@ -120,16 +151,22 @@ export default function Catalog() {
             layout === "list" ? "flex-col" : "flex-row"
           }`}
         >
-          <GameCard
-            view={layout}
-            title={"Game Title"}
-            image={"/imgs/for-test.png"}
-            description="In Woodcraft, players take turns choosing one of seven actions, which become more valuable the longer they remain unchosen. These actions are used to manipulate dice representing wood that can be cut, glued, purchased, or even grown. Manage your workshop, take care of your tools, and work with your friends."
-            price={0}
-            tax={0}
-            label="new"
-          />
+          {isLoading
+            ? "Loading..."
+            : data.map((el: any) => (
+                <GameCard
+                  view={layout}
+                  key={el.id}
+                  title={el.attributes.title}
+                  description={el.attributes.description}
+                  image={el.attributes.images.box.data.attributes.url}
+                  price={el.attributes.price[0].price}
+                  tax={el.attributes.tax}
+                  label={el.attributes.label}
+                />
+              ))}
         </div>
+        <div>{error && <p className="text-red-500">{error}</p>}</div>
       </div>
     </div>
   );

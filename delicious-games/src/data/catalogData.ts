@@ -4,8 +4,8 @@ export const SORT_OPTIONS = [
   "Name (Z - A)",
   "Price (Low > High)",
   "Price (High < Low)",
-  "Rating (Highest)",
-  "Rating (Lowest)",
+  // "Rating (Highest)",
+  // "Rating (Lowest)",
   // "Model (A - Z)",
   // "Model (Z - A)",
 ];

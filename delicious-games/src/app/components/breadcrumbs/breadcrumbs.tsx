@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { faArrowRightLong, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { pathToTitle } from "@/app/utils/utils";
+import { pathToTitle } from "../../../utils/utils";
 
 export default function Breadcrumbs({
   children,
