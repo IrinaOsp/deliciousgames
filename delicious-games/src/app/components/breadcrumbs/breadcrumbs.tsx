@@ -6,11 +6,7 @@ import { faArrowRightLong, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { pathToTitle } from "../../../utils/utils";
 
-export default function Breadcrumbs({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export default function Breadcrumbs() {
   const paths = usePathname().split("/");
 
   return (
@@ -35,7 +31,7 @@ export default function Breadcrumbs({
                   className="text-slate-300 px-2.5"
                 />
                 <Link
-                  href={`/${paths.slice(0, index + 1).join("/")}`}
+                  href={`${paths.slice(0, index + 1).join("/")}`}
                   className="text-zinc-500 text-base capitalize hover:text-stone-400"
                 >
                   {`${pathToTitle(path)}`}
