@@ -1,51 +1,46 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChild, faClock, faUser } from "@fortawesome/free-solid-svg-icons";
+"use client";
 
-export default function TechnicalInfo({
-  players,
-  playingTime,
-  minAge,
-}: {
-  players: string;
-  playingTime: string;
-  minAge: number;
-}) {
+import { faArrowRight, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef, useState } from "react";
+import TechInfoDetails from "./TechInfoDetails/TechInfoDetails";
+
+export type TechInfoProps = {
+  id: number;
+  dimensions?: string;
+  weight?: number;
+  distributionPackageDimensions?: string;
+  packaging?: number;
+  distributionPackWeight?: number;
+  ENGeditionEAN?: number;
+  CZeditionEAN?: null;
+  DEeditionEAN?: null;
+};
+
+export default function TechInfo({ data }: { data: TechInfoProps }) {
+  const [open, setIsOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="p-[5px] flex max-xl:flex-col gap-2.5">
-      <div className="flex-1 bg-zinc-200 p-[15px] flex rounded-[5px] gap-2.5">
-        <div className="size-10 bg-pink-600 rounded-full text-white flex justify-center items-center">
-          <FontAwesomeIcon icon={faUser} />
-        </div>
-        <div>
-          <span className="block uppercase text-sm font-bold">
-            Nr. of Players:
-          </span>
-          <span className="block text-base">{players}</span>
-        </div>
-      </div>
-      <div className="flex-1 bg-zinc-200 p-[15px] flex rounded-[5px] gap-2.5">
-        <div className="size-10 bg-pink-600 rounded-full text-white flex justify-center items-center">
-          <FontAwesomeIcon icon={faClock} />
-        </div>
-        <div>
-          <span className="block uppercase text-sm font-bold">
-            Playing time:
-          </span>
-          <span className="block text-base">
-            {playingTime.endsWith("player")
-              ? playingTime
-              : `${playingTime} min.`}
-          </span>
-        </div>
-      </div>
-      <div className="flex-1 bg-zinc-200 p-[15px] flex rounded-[5px] gap-2.5">
-        <div className="size-10 bg-pink-600 rounded-full text-white flex justify-center items-center">
-          <FontAwesomeIcon icon={faChild} />
-        </div>
-        <div>
-          <span className="block uppercase text-sm font-bold">Age:</span>
-          {minAge && <span className="block text-base">{`${minAge} +`}</span>}
-        </div>
+    <div className="border border-pink-600 border-dotted">
+      <button
+        className="block py-4 px-2.5 uppercase text-white text-sm font-bold hover:text-pink-600"
+        onClick={() => setIsOpen(!open)}
+      >
+        <FontAwesomeIcon
+          icon={open ? faArrowDown : faArrowRight}
+          className="mr-1"
+        />
+        Technical information (click for details)
+      </button>
+      <div
+        ref={contentRef}
+        className="transition-all overflow-hidden"
+        style={{
+          maxHeight: open ? `${contentRef.current?.scrollHeight}px` : "0px",
+        }}
+      >
+        <TechInfoDetails data={data} />
       </div>
     </div>
   );

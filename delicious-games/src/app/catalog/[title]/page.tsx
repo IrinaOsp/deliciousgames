@@ -7,6 +7,7 @@ import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
 import qs from "qs";
 import { StrapiImage } from "@/app/components/UI/StrapiImage/StrapiImage";
 import NotFoundPage from "@/app/not-found";
+import TechInfo from "./components/techInfo/techInfo";
 
 async function getData(path: string) {
   const gameQuery = qs.stringify(
@@ -19,6 +20,7 @@ async function getData(path: string) {
       fields: ["title", "description"],
       populate: {
         specification: "*",
+        techInfo: "*",
         images: {
           populate: {
             box: {
@@ -48,8 +50,10 @@ async function getData(path: string) {
   );
   try {
     const baseUrl = getStrapiURL();
+    console.log(baseUrl);
     const url = new URL("/api/games", baseUrl);
     url.search = gameQuery;
+    console.log(url.href);
     const res = await fetch(url.href).then((res) => res.json());
     return res;
   } catch (error) {
@@ -63,8 +67,10 @@ export default async function DetailedPage({
   params: { title: string };
 }) {
   const res = await getData(params.title);
+  console.log(res);
   if (!res || res.data.length === 0) return <NotFoundPage />;
   const data = res.data[0].attributes;
+  console.log(data);
 
   return (
     <div
@@ -110,6 +116,7 @@ export default async function DetailedPage({
                 height={640}
                 className="block w-full h-auto"
               />
+              {data.techInfo && <TechInfo data={data.techInfo} />}
             </div>
             <div className="sm:w-1/2 ml-4">
               <PageHeading

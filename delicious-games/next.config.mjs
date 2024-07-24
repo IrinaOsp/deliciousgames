@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: process.env.NEXT_PUBLIC_STRAPI_PROTOCOL || "https",
-        hostname: process.env.NEXT_PUBLIC_STRAPI_HOSTNAME,
+        hostname: process.env.NEXT_PUBLIC_STRAPI_HOSTNAME || "localhost",
         port: process.env.NEXT_PUBLIC_STRAPI_PORT || "",
         pathname: "/uploads/**/*",
       },
