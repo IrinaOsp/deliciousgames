@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { StrapiImage } from "../../UI/StrapiImage/StrapiImage";
+import { Routes } from "@/data/data";
 
 export default function DropDownMenuItem({
   title,
@@ -19,14 +20,17 @@ export default function DropDownMenuItem({
         key={title}
         onMouseEnter={() => setIsImageVisible(true)}
         onMouseLeave={() => setIsImageVisible(false)}
-        className="w-64 p-2.5 text-zinc-800 hover:bg-pink-600"
+        className="p-2.5 text-zinc-800 hover:bg-pink-600"
       >
-        <Link href={link} className="w-72">
-          {title}
+        <Link
+          href={`${Routes.CATALOGUE}/${link}`}
+          className="min-w-min font-normal capitalize"
+        >
+          {title.toLowerCase()}
         </Link>
       </li>
       {isImageVisible && (
-        <Image
+        <StrapiImage
           src={img}
           alt={title}
           className="absolute top-0 left-full max-h-full w-auto size-[432px]"
