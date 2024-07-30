@@ -1,7 +1,7 @@
 import PageHeading from "../components/UI/pageHeading/pageHeading";
 import { redHat } from "../fonts";
 import ContactCards from "./contactCards/contactCards";
-import ContactForm from "./contactForm/contactForm";
+import ContactForm from "../components/contactForm/contactForm";
 
 export default function Contact() {
   return (
