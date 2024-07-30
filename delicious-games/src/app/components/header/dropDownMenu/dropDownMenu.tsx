@@ -1,31 +1,14 @@
-"use client";
-
 import { Dispatch, SetStateAction } from "react";
 import DropDownMenuItem from "../dropDownMenuItem/dropDownMenuItem";
-
-const products = [
-  {
-    title: "Woodcraft",
-    link: "/woodcraft",
-    img: "/imgs/woodcraft.png",
-  },
-  {
-    title: "Evacuation",
-    link: "/evacuation",
-    img: "/imgs/for-test.png",
-  },
-  {
-    title: "Catan",
-    link: "/catan",
-    img: "/imgs/woodcraft.png",
-  },
-];
+import { useProducts } from "@/hooks/useProducts";
 
 export default function DropDownMenu({
   setDropDownMenuVisibility,
 }: {
   setDropDownMenuVisibility: Dispatch<SetStateAction<boolean>>;
 }) {
+  const products = useProducts("main");
+
   const handleDropDownEnter = () => {
     setDropDownMenuVisibility(true);
   };
@@ -43,9 +26,10 @@ export default function DropDownMenu({
     >
       <i className="block mx-auto size-0 border-x-8 border-transparent border-b-8 border-b-white"></i>
       <ul className="relative bg-slate-50 shadow-xl">
-        {products.map(({ title, link, img }) => (
-          <DropDownMenuItem key={title} title={title} link={link} img={img} />
-        ))}
+        {products &&
+          products.map(({ title, path, img }) => (
+            <DropDownMenuItem key={title} title={title} link={path} img={img} />
+          ))}
       </ul>
     </div>
   );

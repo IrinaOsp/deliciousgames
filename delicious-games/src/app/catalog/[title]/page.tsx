@@ -8,6 +8,7 @@ import qs from "qs";
 import { StrapiImage } from "@/app/components/UI/StrapiImage/StrapiImage";
 import NotFoundPage from "@/app/not-found";
 import TechInfo from "./components/techInfo/techInfo";
+import ImagesSlider from "./components/imgsSlider/imgsSlider";
 
 async function getData(path: string) {
   const gameQuery = qs.stringify(
@@ -32,8 +33,12 @@ async function getData(path: string) {
             components: {
               fields: "url",
             },
+            sliderImages: {
+              fields: "*",
+            },
           },
         },
+        videos: "*",
         rules: {
           fields: ["name", "document", "isBonus"],
           populate: {
@@ -50,10 +55,10 @@ async function getData(path: string) {
   );
   try {
     const baseUrl = getStrapiURL();
-    console.log(baseUrl);
+    // console.log(baseUrl);
     const url = new URL("/api/games", baseUrl);
     url.search = gameQuery;
-    console.log(url.href);
+    // console.log(url.href);
     const res = await fetch(url.href).then((res) => res.json());
     return res;
   } catch (error) {
@@ -67,27 +72,13 @@ export default async function DetailedPage({
   params: { title: string };
 }) {
   const res = await getData(params.title);
-  console.log(res);
+  // console.log(res);
   if (!res || res.data.length === 0) return <NotFoundPage />;
   const data = res.data[0].attributes;
-  console.log(data);
+  // console.log(data);
 
   return (
-    <div
-      className={`relative size-full`}
-      // style={{
-      //   backgroundImage: `url(${getStrapiMedia(
-      //     data.images.background.data.attributes.url
-      //   )})`,
-      // }}
-    >
-      {/* <StrapiImage
-        src={data.images.background.data.attributes.url}
-        alt=""
-        width={1920}
-        height={1080}
-        className="size-full object-cover fixed brightness-50"
-      /> */}
+    <div className={`relative size-full`}>
       <div
         className={`absolute inset-0 w-full h-full bg-no-repeat bg-cover bg-fixed ${
           data.images.background.data.attributes.url ? "" : "bg-slate-600"
@@ -137,7 +128,16 @@ export default async function DetailedPage({
         {data.images.components.data.attributes.url && (
           <GameComponents img={data.images.components.data.attributes.url} />
         )}
-        {data.rules && <RulesSection rules={data.rules} />}
+        {data.videos.length && (
+          <ImagesSlider data={data.videos} title={"Videos:"} />
+        )}
+        {data.images.sliderImages.data && (
+          <ImagesSlider
+            data={data.images.sliderImages.data}
+            title={"Images:"}
+          />
+        )}
+        {data.rules.length && <RulesSection rules={data.rules} />}
       </div>
       <SellOffer />
     </div>
