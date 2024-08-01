@@ -5,23 +5,26 @@ import qs from "qs";
 import { getStrapiURL } from "@/utils/strapi";
 import { GetProductsResponse, Product } from "@/types/types";
 
-export const useProducts = (imgType: "box" | "main") => {
+export const useProducts = (imgType: "box" | "main" | "none") => {
   const [products, setProducts] = useState<Product[] | null>(null);
 
-  const productsQuery = qs.stringify(
-    {
-      populate: {
-        images: {
-          populate: {
-            [imgType]: {
-              fields: ["alternativeText", "url"],
+  const productsQuery =
+    imgType === "none"
+      ? ""
+      : qs.stringify(
+          {
+            populate: {
+              images: {
+                populate: {
+                  [imgType]: {
+                    fields: ["alternativeText", "url"],
+                  },
+                },
+              },
             },
           },
-        },
-      },
-    },
-    { encodeValuesOnly: true }
-  );
+          { encodeValuesOnly: true }
+        );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,7 +37,10 @@ export const useProducts = (imgType: "box" | "main") => {
         );
         if (res.data.length) {
           const products: Product[] = res.data.map((el) => ({
-            img: (el.attributes.images as any)[imgType].data.attributes.url,
+            img:
+              imgType === "none"
+                ? ""
+                : (el.attributes.images as any)[imgType].data.attributes.url,
             title: el.attributes.title,
             path: el.attributes.path,
           }));
