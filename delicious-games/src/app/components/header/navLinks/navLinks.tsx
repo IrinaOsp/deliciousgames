@@ -100,7 +100,7 @@ export default function NavLinks() {
 
         <ul
           className={`p-3 list-none text-nowrap flex flex-col items-start lg:flex-row lg:items-center text-slate-300 uppercase text-base
-          h-full lg:bg-none bg-gradient-to-br from-[#29323c] to-[#485563] shadow-[0_15px_90px_-10px_rgba(0,0,0,0.2)]
+          h-full bg-gradient-to-br max-lg:from-[#29323c] max-lg:to-[#485563] max-lg:shadow-[0_15px_90px_-10px_rgba(0,0,0,0.2)]
           `}
         >
           {MENU_LINKS.map(({ page, link }, ind) =>

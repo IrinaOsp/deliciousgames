@@ -1,0 +1,4 @@
+button.custom-next:first-of-type {
+  top: calc(58% - 40px);
+  transform: rotate(180deg);
+}

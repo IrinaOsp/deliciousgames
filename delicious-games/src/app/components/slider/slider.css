@@ -5,9 +5,9 @@
   flex-direction: column;
   gap: 4px;
   left: 0;
-  top: 50%;
+  top: 58%;
   z-index: 20;
-
+  transform: translate(0, -50%);
   width: auto;
 
   padding: 10px;
@@ -17,6 +17,7 @@
 
   text-align: center;
 }
+
 .slick-dots-custom li {
   position: relative;
 
@@ -72,4 +73,50 @@
 }
 .slick-dots-custom li.slick-active button:before {
   background-color: rgb(230, 0, 126);
+}
+
+.slick-list {
+  height: 100%;
+  width: 100%;
+}
+.slick-track {
+  height: 100%;
+}
+
+.slick-slide div:first-child {
+  height: 100%;
+}
+
+.slick-arrow {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 1);
+  &::before {
+    color: black;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .slick-dots-custom {
+    flex-direction: row;
+    bottom: 20px;
+    top: 96%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .slick-dots-custom li {
+    width: 20px;
+    height: 5px;
+  }
+  .slick-dots-custom li button {
+    width: 20px;
+    height: 5px;
+  }
+  .slick-dots-custom li button::before {
+    width: 20px;
+    height: 5px;
+  }
 }

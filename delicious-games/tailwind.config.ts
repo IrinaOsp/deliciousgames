@@ -21,7 +21,7 @@ const config = {
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: "0", transform: "translateX(100px)" },
+          "0%": { opacity: "0", transform: "translateX(200px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
         "accordion-down": {

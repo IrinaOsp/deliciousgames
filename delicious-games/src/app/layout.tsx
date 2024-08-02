@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${titillium.className} pt-[85px] lg:pt-[140px] min-h-screen flex flex-col bg-slate-50`}
+        className={`${titillium.className} min-h-screen flex flex-col bg-slate-50`}
       >
         <Header />
         <Breadcrumbs />

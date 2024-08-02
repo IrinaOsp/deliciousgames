@@ -14,8 +14,8 @@ async function getData(path: string) {
   const gameQuery = qs.stringify(
     {
       filters: {
-        title: {
-          $startsWithi: path.split("-")[0],
+        path: {
+          $eqi: path,
         },
       },
       fields: ["title", "description"],
@@ -128,7 +128,7 @@ export default async function DetailedPage({
         {data.images.components.data.attributes.url && (
           <GameComponents img={data.images.components.data.attributes.url} />
         )}
-        {data.videos.length && (
+        {data.videos[0] && (
           <ImagesSlider data={data.videos} title={"Videos:"} />
         )}
         {data.images.sliderImages.data && (
