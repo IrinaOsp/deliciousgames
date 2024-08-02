@@ -7,6 +7,7 @@ export type GameCardInfo = {
   tax?: number;
   label?: string;
   rating?: number;
+  path: string;
 };
 
 type ResponseItemMainImg = {
@@ -50,4 +51,12 @@ export type Product = {
   img: string;
   title: string;
   path: string;
+};
+
+export type BlogPostType = {
+  path: string;
+  title: string;
+  date: string;
+  images: string[];
+  text: string[];
 };

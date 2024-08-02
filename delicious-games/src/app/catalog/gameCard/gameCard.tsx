@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { titleToPath, trimText } from "../../../utils/utils";
+import { trimText } from "../../../utils/utils";
 import { GameCardInfo } from "@/types/types";
 import { StrapiImage } from "@/app/components/UI/StrapiImage/StrapiImage";
 
@@ -11,6 +11,7 @@ export default function GameCard({
   price,
   tax,
   label,
+  path,
 }: GameCardInfo) {
   return (
     <div
@@ -19,7 +20,7 @@ export default function GameCard({
       } sm:flex-nowrap flex-wrap max-sm:w-1/2 justify-center gap-5 bg-white p-2.5 group`}
     >
       <div className="sm:size-[250px] relative">
-        <Link href={`/catalog/${titleToPath(title)}`}>
+        <Link href={`/catalog/${path}`}>
           {label && (
             <div className="absolute z-10 top-0 left-0 w-full bg-transparent text-white text-xs flex items-center justify-end">
               <span className="bg m-2.5">
@@ -49,7 +50,7 @@ export default function GameCard({
 
       <div>
         <Link
-          href={`/catalog/${titleToPath(title)}`}
+          href={`/catalog/${path}`}
           className={`${
             view === "grid" ? "w-full max-w-60" : "w-auto"
           } inline-block font-redHat text-center font-bold text-lg text-sky-900 hover:text-pink-600 duration-200`}

@@ -1,15 +1,5 @@
 import { GameCardInfo } from "@/types/types";
 
-export const titleToPath: (title: string) => string = (title) => {
-  return title
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9 ]/g, "")
-    .replace(/  /g, " ")
-    .replace(/ /g, "-");
-  // .split(/[^a-zA-Z0-9-]/)[0];
-};
-
 export const pathToTitle: (path: string) => string = (path) => {
   return path.trim().toLowerCase().replace(/-/g, " ");
 };

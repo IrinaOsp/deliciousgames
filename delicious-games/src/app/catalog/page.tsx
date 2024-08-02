@@ -13,7 +13,7 @@ import { getStrapiURL } from "../../utils/strapi";
 
 const gamesQuery = qs.stringify(
   {
-    fields: ["title", "description"],
+    fields: ["title", "description", "path"],
     populate: {
       price: {
         fields: ["currency", "price"],
@@ -163,6 +163,7 @@ export default function Catalog() {
                   price={el.attributes.price[0].price}
                   tax={el.attributes.tax}
                   label={el.attributes.label}
+                  path={el.attributes.path}
                 />
               ))}
         </div>
