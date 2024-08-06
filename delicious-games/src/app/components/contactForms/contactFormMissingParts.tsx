@@ -32,13 +32,15 @@ import { formSchema } from "./validation/schema";
 import { useProducts } from "@/hooks/useProducts";
 import { GAMES } from "@/data/gamesData";
 
-export function ContactForm() {
+type FormData = z.infer<typeof formSchema>;
+
+export function ContactFormMissingParts() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [file, setFile] = useState<File | undefined>(undefined);
   const [isSending, setIsSending] = useState<boolean>(false);
   const games = useProducts("none");
 
-  const contactForm = useForm<z.infer<typeof formSchema>>({
+  const contactForm = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
     defaultValues: {
@@ -54,14 +56,14 @@ export function ContactForm() {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsSending(true);
-
+  async function onSubmit(data: FormData) {
     const recaptchaValue = recaptchaRef.current?.getValue();
     if (!recaptchaValue) {
       alert("Please complete the reCAPTCHA");
       return;
     }
+
+    setIsSending(true);
     const formData = new FormData();
     formData.append("username", data.username);
     formData.append("email", data.email);
@@ -103,7 +105,7 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base inline-block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Username*
+                Your name & surname*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
@@ -322,12 +324,16 @@ export function ContactForm() {
           </span>
           <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
-            ref={recaptchaRef}
             size="normal"
+            ref={recaptchaRef}
           />
         </div>
 
-        <Button type="submit" disabled={isSending}>
+        <Button
+          type="submit"
+          disabled={isSending}
+          className="mt-5 w-full p-[13px] bg-pink-600 text-white hover:bg-slate-500 uppercase text-sm leading-[14px]"
+        >
           {isSending ? "Sending..." : "Submit"}
         </Button>
       </form>

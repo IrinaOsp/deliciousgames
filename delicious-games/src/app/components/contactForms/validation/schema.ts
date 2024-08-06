@@ -38,3 +38,15 @@ export const formSchema = z.object({
     message: "You must accept the privacy policy",
   }),
 });
+
+export const shortFormSchema = z.object({
+  username: z.string().min(2, { message: "Username is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Please enter a valid email." }),
+  message: z.string().min(1, { message: "Message is required" }),
+  privacyPolicy: z.boolean().refine((value) => value, {
+    message: "You must accept the privacy policy",
+  }),
+});

@@ -7,6 +7,7 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const username = formData.get("username")?.toString();
     const email = formData.get("email")?.toString();
+    const message = formData.get("message")?.toString();
     const shippingAddress = formData.get("shippingAddress")?.toString();
     const country = formData.get("country")?.toString();
     const reasonOfSalesReturn = formData.get("reasonOfSalesReturn")?.toString();
@@ -37,11 +38,15 @@ export async function POST(req: NextRequest) {
       to: process.env.NEXT_PUBLIC_MY_EMAIL,
       subject: `Email from ${username} (${email})`,
       text: `Email from ${username} (${email}) at ${new Date()}: 
-      \n\n Shipping address: ${shippingAddress} 
-      \n\n Country: ${country}
-      \n\n Reason of sales return: ${reasonOfSalesReturn}
-      \n\n Boardgame name: ${boardgameName}
-      \n\n Detail information: ${detailInfo}`,
+      ${message && `\n\n Message: ${message}`} 
+      ${shippingAddress && `\n\n Shipping address: ${shippingAddress}`} 
+      ${country && `\n\n Country: ${country}`}
+      ${
+        reasonOfSalesReturn &&
+        `\n\n Reason of sales return: ${reasonOfSalesReturn}`
+      }
+      ${boardgameName && `\n\n Boardgame name: ${boardgameName}`}
+      ${detailInfo && `\n\n Detail information: ${detailInfo}`}`,
       attachments: attachment ? [attachment] : [],
     };
 

@@ -1,4 +1,4 @@
-import { ContactForm } from "../components/contactFormMissingParts/contactForm";
+import { ContactFormMissingParts } from "../components/contactForms/contactFormMissingParts";
 import PageHeading from "../components/UI/pageHeading/pageHeading";
 
 export default function MissingParts() {
@@ -9,7 +9,7 @@ export default function MissingParts() {
         headingLvl={3}
         styles={{ fontSize: "20px" }}
       />
-      <ContactForm />
+      <ContactFormMissingParts />
     </div>
   );
 }
