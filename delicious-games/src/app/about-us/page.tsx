@@ -1,4 +1,5 @@
 import PageHeading from "@/app/components/UI/pageHeading/pageHeading";
+import Blockquote from "../components/UI/blockquote/blockquote";
 
 export default function AboutUs() {
   return (
@@ -14,15 +15,13 @@ export default function AboutUs() {
         where we would like to have english vision of it.
       </p>
       <br />
-      <blockquote className="m-5 p-2.5 pl-5 max-w-[900px] rounded-[3px] border-l-[3px] border-pink-600 bg-neutral-200">
-        <span className="font-serif	text-[13px] italic text-neutral-800">
-          Why are we DELICIOUS? We don´t want to deny that all members of our
+      <Blockquote
+        text={`Why are we DELICIOUS? We don´t want to deny that all members of our
           family are crazy about sweets. None of us will resist velvety fine
           chocolate or crunchy kremlin. In the same time we don´t resist great
           and/or funny boardgame. In addition our boardgame is (and we hope
-          others will be) amazing – shortly DELICIOUS !
-        </span>
-      </blockquote>
+          others will be) amazing – shortly DELICIOUS !`}
+      />
     </section>
   );
 }

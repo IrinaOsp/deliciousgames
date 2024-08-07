@@ -6,12 +6,12 @@ export const gamesForSlider: GameDataToRender[] = [
     banner: "/imgs/evacuation.png",
     topBtn: "Strategic boardgames",
     bottomBtn: "read more",
-    linkToGame: "/evacuation",
+    linkToGame: "catalog/evacuation",
   },
   {
     bgImg: "/imgs/woodcraft_Cover_Background_02-1920x1511h.jpg",
     banner: "/imgs/woodcraft.png",
     bottomBtn: "download for free",
-    linkToGame: "/woodcraft",
+    linkToGame: "catalog/woodcraft",
   },
 ];

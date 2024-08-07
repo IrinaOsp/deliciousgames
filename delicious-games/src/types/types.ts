@@ -53,10 +53,17 @@ export type Product = {
   path: string;
 };
 
+type BlogImage = {
+  path: string;
+  name: string;
+};
+
 export type BlogPostType = {
   path: string;
   title: string;
   date: string;
-  images: string[];
+  images: BlogImage[];
   text: string[];
+  tags?: string[];
+  relatedProductsPaths?: string[];
 };

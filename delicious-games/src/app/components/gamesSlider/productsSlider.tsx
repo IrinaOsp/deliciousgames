@@ -1,11 +1,9 @@
 "use client";
 
 import Slider, { CustomArrowProps, Settings } from "react-slick";
-import Link from "next/link";
 import "./productsSlider.css";
-import { StrapiImage } from "../UI/StrapiImage/StrapiImage";
-import { Routes } from "@/data/data";
 import { useProducts } from "@/hooks/useProducts";
+import GameBox from "../gameBox/gameBox";
 
 function SampleArrow(props: CustomArrowProps) {
   const { className, style, onClick } = props;
@@ -43,29 +41,13 @@ export default function ProductsSlider() {
 
   return (
     <div className="px-5">
-      <Slider {...settings} className="">
-        {products &&
-          products.map((el) => (
-            <Link
-              href={`${Routes.CATALOGUE}/${el.path}`}
-              key={el.title}
-              className="group"
-            >
-              <div>
-                <StrapiImage
-                  src={el.img}
-                  alt={el.title}
-                  className="w-full group-hover:scale-110 transition-all"
-                  width={303}
-                  height={303}
-                />
-                <p className="text-center uppercase text-[17px] font-bold group-hover:text-pink-600">
-                  {el.title}
-                </p>
-              </div>
-            </Link>
+      {products && (
+        <Slider {...settings} className="">
+          {products.map((el) => (
+            <GameBox key={el.title} el={el} />
           ))}
-      </Slider>
+        </Slider>
+      )}
     </div>
   );
 }

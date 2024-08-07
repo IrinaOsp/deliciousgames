@@ -7,18 +7,18 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
   const { title, path, date, images, text } = post;
 
   return (
-    <div className="text-center p-2.5 max-w-[500px] w-1/2">
-      <div className="relative h-[300px] overflow-hidden">
+    <div className="flex flex-col text-center">
+      <div className="relative h-full max-h-[300px] overflow-hidden">
         <Link href={`blog/${path}`}>
           <span className="block absolute top-0 left-0 z-10 w-min m-1 bg-pink-600 text-white text-xs text-wrap py-1 px-2.5">
             {date}
           </span>
           <Image
-            src={images[0]}
-            alt={title}
+            src={images[0].path}
+            alt={images[0].name || title}
             width={500}
             height={300}
-            className="h-full w-auto object-cover hover:transition hover:scale-110"
+            className="max-h-[284px] h-full w-auto object-cover hover:transition hover:scale-110"
           />
         </Link>
       </div>
@@ -30,11 +30,16 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
           {title}
         </Link>
       </div>
-      <p className="mb-2.5">{trimText(text[0], 200)}</p>
-      <div>
+      <p className="max-md:hidden mb-2.5">
+        {text[0] &&
+          trimText(text[0], 200)
+            .replace(/\<[^>]*\>/g, "")
+            .replace("/n", "")}
+      </p>
+      <div className="grow flex items-end">
         <Link
           href={`blog/${path}`}
-          className="block p-3 text-white w-max mx-auto bg-zinc-500 hover:bg-pink-600 uppercase"
+          className="block h-max p-3 mb-2.5 text-white w-max mx-auto bg-zinc-500 hover:bg-pink-600 uppercase"
         >
           Read more
         </Link>
