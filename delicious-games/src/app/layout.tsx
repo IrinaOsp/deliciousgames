@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { titillium } from "./fonts";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import Breadcrumbs from "./components/breadcrumbs/breadcrumbs";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 export const metadata: Metadata = {
   title: "Delicious Games",
