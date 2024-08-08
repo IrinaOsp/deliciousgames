@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  ImagesSliderProps,
-  VideosProps,
-} from "@/app/catalog/[title]/components/imgsSlider/imgsSlider";
-import { getStrapiMedia } from "@/utils/strapi";
 import { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
@@ -12,8 +7,14 @@ import LightGallery from "lightgallery/react";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import lgVideo from "lightgallery/plugins/video";
+import { getStrapiMedia } from "@/utils/strapi";
+import {
+  ImagesSliderProps,
+  VideosProps,
+} from "@/app/catalog/[title]/components/imgsSlider/imgsSlider";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-video.css";
 import "lightgallery/css/lg-thumbnail.css";
 
 function SimpleGallery({
@@ -23,7 +24,9 @@ function SimpleGallery({
   media: any[];
   mediaType: string;
 }) {
-  console.log(media);
+  const onInit = () => {
+    if (!document) return;
+  };
 
   const getItems = useCallback(() => {
     return media.map((item) => {
@@ -31,8 +34,16 @@ function SimpleGallery({
         <a
           key={item.id}
           title={item.name}
-          data-src={item.largeURL || item.url}
-          data-video={mediaType === "video" && item.url}
+          data-index={item.id}
+          data-video={
+            mediaType === "video"
+              ? JSON.stringify({
+                  source: [{ src: item.url, type: "video/mp4" }],
+                  attributes: { preload: "none" },
+                })
+              : undefined
+          }
+          data-src={mediaType === "image" ? item.largeURL : item.url}
           rel="noreferrer"
           className={`relative size-16 md:size-[150px] ${
             mediaType === "video" ? "max-h-[84px]" : ""
@@ -48,25 +59,29 @@ function SimpleGallery({
               item.url.replace("www", "img").replace("embed", "vi") +
                 "/default.jpg"
             }
-            alt=""
+            alt={item.name}
             className="size-full object-cover hover:contrast-50 hover:scale-150 transition-all"
           />
         </a>
       );
     });
-  }, [media]);
+  }, [media, mediaType]);
 
   return (
     <div className="App">
       <LightGallery
-        showZoomInOutIcons
+        onInit={onInit}
         download={false}
-        actualSize={false}
+        loadYouTubeThumbnail={false}
+        showZoomInOutIcons
+        autoplay={false}
         autoplayFirstVideo={false}
-        loadYouTubeThumbnail={true}
+        autoplayControls={false}
+        loadYouTubePoster={true}
+        controls={false}
         plugins={[lgThumbnail, lgZoom, lgVideo]}
-        videojs={true}
         elementClassNames="flex flex-wrap gap-2.5"
+        licenseKey="1234-4567-8910-1112"
       >
         {getItems()}
       </LightGallery>
