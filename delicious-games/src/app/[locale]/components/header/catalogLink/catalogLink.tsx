@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import PlusButton from "../../UI/plusButton/plusButton";
+import { StrapiImage } from "../../UI/StrapiImage/StrapiImage";
 
 export default function CatalogLink({
   title,
@@ -19,12 +19,15 @@ export default function CatalogLink({
       key={title}
       className="w-full flex flex-wrap justify-between py-1 text-slate-300 hover:text-slate-100"
     >
-      <Link href={link} className="uppercase text-[13px]">
+      <Link
+        href={"catalog/" + link}
+        className="block pr-2 max-w-[calc(100%-20px)] uppercase overflow-x-hidden text-ellipsis text-[13px]"
+      >
         {title}
       </Link>
       <PlusButton state={isItemOpened} dispatch={setIsItemOpened} />
       {isItemOpened && (
-        <Image
+        <StrapiImage
           src={img}
           alt={title}
           className="w-full"

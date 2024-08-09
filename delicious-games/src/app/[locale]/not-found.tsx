@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PageHeading from "../components/UI/pageHeading/pageHeading";
+import PageHeading from "./components/UI/pageHeading/pageHeading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 

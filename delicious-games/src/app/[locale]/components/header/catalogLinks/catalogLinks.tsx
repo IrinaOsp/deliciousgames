@@ -1,25 +1,16 @@
 import CatalogLink from "../catalogLink/catalogLink";
-
-const products = [
-  {
-    title: "Woodcraft",
-    link: "/woodcraft",
-    img: "/imgs/woodcraft.png",
-  },
-  {
-    title: "Evacuation",
-    link: "/evacuation",
-    img: "/imgs/woodcraft.png",
-  },
-];
+import { useProducts } from "@/hooks/useProducts";
 
 export default function CatalogLinks() {
+  const products = useProducts("main");
+
   return (
     <div className="w-full transition-transform">
       <ul className="pl-10">
-        {products.map(({ title, link, img }) => (
-          <CatalogLink key={title} title={title} link={link} img={img} />
-        ))}
+        {products &&
+          products.map(({ title, path, img }) => (
+            <CatalogLink key={title} title={title} link={path} img={img} />
+          ))}
       </ul>
     </div>
   );

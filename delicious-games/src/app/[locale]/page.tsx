@@ -1,7 +1,7 @@
-import ProductsSlider from "../components/gamesSlider/productsSlider";
-import SellOffer from "../components/sellOffer/sellOffer";
-import SliderWrapper from "../components/slider/slider";
-import PageHeading from "../components/UI/pageHeading/pageHeading";
+import ProductsSlider from "./components/gamesSlider/productsSlider";
+import SellOffer from "./components/sellOffer/sellOffer";
+import SliderWrapper from "./components/slider/slider";
+import PageHeading from "./components/UI/pageHeading/pageHeading";
 
 export default function Home() {
   return (
