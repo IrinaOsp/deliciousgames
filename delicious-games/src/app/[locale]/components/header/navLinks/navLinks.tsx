@@ -17,6 +17,7 @@ import { MENU_LINKS } from "@/data/data";
 import CatalogLinks from "../catalogLinks/catalogLinks";
 import PlusButton from "../../UI/plusButton/plusButton";
 import DropDownMenu from "../dropDownMenu/dropDownMenu";
+import { useTranslation } from "react-i18next";
 
 const MENU_ICONS: IconDefinition[] = [
   faBars,
@@ -32,6 +33,8 @@ export default function NavLinks() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const mobileMenu = useRef<null | HTMLDivElement>(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -99,9 +102,9 @@ export default function NavLinks() {
         </div>
 
         <ul
-          className={`p-3 list-none text-nowrap flex flex-col items-start lg:flex-row lg:items-center text-slate-300 uppercase text-base
+          className={`overflow-y-auto overflow-x-clip p-3 list-none text-nowrap flex flex-col items-start lg:flex-row lg:items-center text-slate-300 uppercase text-base
           h-full bg-gradient-to-br max-lg:from-[#29323c] max-lg:to-[#485563] max-lg:shadow-[0_15px_90px_-10px_rgba(0,0,0,0.2)]
-          `}
+          lg:w-max`}
         >
           {MENU_LINKS.map(({ page, link }, ind) =>
             ind === 0 ? (
@@ -124,7 +127,7 @@ export default function NavLinks() {
                     className="w-5 inline mr-2"
                   />
                   <span className="pr-4 border-r-[1px] border-dotted">
-                    {page}
+                    {t(link.slice(1))}
                   </span>
                 </Link>
                 {isMenuOpen && (
@@ -133,7 +136,7 @@ export default function NavLinks() {
                     dispatch={setIsCatalogOpen}
                   />
                 )}
-                {isCatalogOpen && <CatalogLinks />}
+                {isMenuOpen && isCatalogOpen && <CatalogLinks />}
                 {isDropdownVisible && (
                   <DropDownMenu
                     setDropDownMenuVisibility={setDropdownVisible}
@@ -153,7 +156,7 @@ export default function NavLinks() {
                   href={link}
                   className="hover:underline hover:decoration-pink-500 underline-offset-2"
                 >
-                  {page}
+                  {t(link.slice(1))}
                 </Link>
               </li>
             )
