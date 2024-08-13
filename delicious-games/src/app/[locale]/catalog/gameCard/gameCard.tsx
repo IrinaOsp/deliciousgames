@@ -53,7 +53,7 @@ export default function GameCard({
           href={`/catalog/${path}`}
           className={`${
             view === "grid" ? "w-full max-w-60" : "w-auto"
-          } inline-block font-redHat text-center font-bold text-lg text-sky-900 hover:text-pink-600 duration-200`}
+          } uppercase inline-block font-redHat text-center font-bold text-lg text-sky-900 hover:text-pink-600 duration-200`}
         >
           {title}
         </Link>

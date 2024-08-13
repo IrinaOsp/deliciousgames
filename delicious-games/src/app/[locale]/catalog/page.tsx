@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import qs from "qs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,35 +11,42 @@ import GameCard from "./gameCard/gameCard";
 import { sortData } from "../../../utils/utils";
 import { getStrapiURL } from "../../../utils/strapi";
 import PageHeading from "../components/UI/pageHeading/pageHeading";
+import { ResponseCatalogItem } from "@/types/types";
 
-const gamesQuery = qs.stringify(
-  {
-    fields: ["title", "description", "path"],
-    populate: {
-      price: {
-        fields: ["currency", "price"],
-      },
-      images: {
-        populate: {
-          box: {
-            fields: ["alternativeText", "url"],
-          },
-        },
-      },
-    },
-  },
-  {
-    encodeValuesOnly: true,
-  }
-);
-
-export default function Catalog() {
+export default function Catalog({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const [layout, setLayout] = useState<"grid" | "list">("list");
   const [sort, setSort] = useState("default");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ResponseCatalogItem[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState("12");
+  const { t } = useTranslation("catalog");
+
+  const gamesQuery = qs.stringify(
+    {
+      fields: ["title", "description", "path"],
+      populate: {
+        price: {
+          fields: ["currency", "price"],
+        },
+        images: {
+          populate: {
+            box: {
+              fields: ["alternativeText", "url"],
+            },
+          },
+        },
+      },
+      locale,
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
 
   const handleLayout = (display: "grid" | "list") => {
     setLayout(display);
@@ -46,7 +54,7 @@ export default function Catalog() {
 
   const handleSort = (target: HTMLSelectElement) => {
     setSort(target.value);
-    sortData(data, sort);
+    sortData(data, target.value);
   };
 
   const handleLimit = (target: HTMLSelectElement) => {
@@ -62,7 +70,8 @@ export default function Catalog() {
         const url = new URL(path, baseUrl);
         url.search = gamesQuery;
         const res = await fetch(url.href).then((res) => res.json());
-        setData(res.data);
+        const responseData: ResponseCatalogItem[] = res.data;
+        setData(responseData);
       } catch (error) {
         setError((error as Error)?.message || "Failed to fetch data");
         console.error(error);
@@ -76,7 +85,7 @@ export default function Catalog() {
 
   return (
     <div className="max-w-7xl mx-auto p-5 xl:px-0">
-      <PageHeading title={"All Games"} />
+      <PageHeading title={t("heading")} />
 
       <div>
         <div className="flex justify-between items-center mb-5">
@@ -106,18 +115,18 @@ export default function Catalog() {
                 htmlFor="input-sort"
                 className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs max-[500px]:hidden"
               >
-                Sort By:
+                {`${t("sort_by")}: `}
               </label>
               <select
                 name="input-sort"
                 id="input-sort"
-                onSelect={(e) => handleSort(e.target as HTMLSelectElement)}
+                onChange={(e) => handleSort(e.target as HTMLSelectElement)}
                 className="h-[26px] text-xs border border-zinc-300 rounded-sm max-w-[500px]
                  active:border-slate-500 focus:outline-none focus:border-slate-500"
               >
-                {SORT_OPTIONS.map((el) => (
-                  <option key={el} value={el} className="text-inherit">
-                    {el}
+                {SORT_OPTIONS.map(({ key, enValue }) => (
+                  <option key={key} value={t(enValue)} className="text-inherit">
+                    {t(key)}
                   </option>
                 ))}
               </select>
@@ -127,7 +136,7 @@ export default function Catalog() {
                 htmlFor="input-limit"
                 className="py-[5px] px-2.5 bg-zinc-100 rounded-[3px] text-xs max-[500px]:hidden"
               >
-                Show:{" "}
+                {`${t("show")}: `}
               </label>
               <select
                 name="input-limit"

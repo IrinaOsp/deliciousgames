@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <div
       className={`flex mx-auto ${
-        pathname === "/blog" ? "max-w-7xl" : "max-w-[1000px]"
+        pathname.endsWith("/blog") ? "max-w-7xl" : "max-w-[1000px]"
       }`}
     >
       <SearchContext.Provider value={{}}>

@@ -42,6 +42,24 @@ type ResponseItemBoxImg = {
     };
   };
 };
+export type ResponseCatalogItem = {
+  id: number;
+  attributes: {
+    description: string;
+    title: string;
+    path: string;
+    images: {
+      box: {
+        data: {
+          attributes: {
+            url: string;
+          };
+        };
+      };
+    };
+    price: [{ id: number; price: number; currency: string }];
+  };
+};
 
 export type GetProductsResponse = {
   data: ResponseItemBoxImg[] | ResponseItemMainImg[];
