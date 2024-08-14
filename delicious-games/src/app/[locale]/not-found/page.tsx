@@ -8,7 +8,6 @@ export default function NotFoundPage({
 }: {
   params: { locale: string };
 }) {
-  console.log(locale);
   return (
     <div className="max-w-7xl mx-auto p-5">
       <PageHeading

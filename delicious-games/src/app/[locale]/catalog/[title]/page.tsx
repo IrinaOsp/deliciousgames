@@ -3,12 +3,12 @@ import Specification from "./components/specification/specification";
 import GameComponents from "./components/gameComponents/gameComponents";
 import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
 import qs from "qs";
-import NotFoundPage from "@/app/not-found";
 import TechInfo from "./components/techInfo/techInfo";
 import { StrapiImage } from "../../components/UI/StrapiImage/StrapiImage";
 import PageHeading from "../../components/UI/pageHeading/pageHeading";
 import SellOffer from "../../components/sellOffer/sellOffer";
 import { getDictionary } from "@/dictionaries";
+import { redirect } from "next/navigation";
 
 const ImagesSlider = dynamic(
   () => import("./components/imgsSlider/imgsSlider")
@@ -61,10 +61,10 @@ async function getData(path: string, locale: string) {
   );
   try {
     const baseUrl = getStrapiURL();
-    // console.log(baseUrl);
+
     const url = new URL("/api/games", baseUrl);
     url.search = gameQuery;
-    // console.log(url.href);
+
     const res = await fetch(url.href).then((res) => res.json());
     return res;
   } catch (error) {
@@ -80,10 +80,9 @@ export default async function DetailedPage({
   const dict = await getDictionary(params.locale, "gamePage");
 
   const res = await getData(params.title, params.locale);
-  // console.log(res);
-  if (!res || res.data.length === 0) return <NotFoundPage />;
+
+  if (!res || res.data.length === 0) redirect("not-found");
   const data = res.data[0].attributes;
-  // console.log(data);
 
   return (
     <div className={`relative size-full`}>

@@ -9,7 +9,6 @@ export const trimText = (text: string, maxLength: number): string => {
 };
 
 export const sortData = (data: ResponseCatalogItem[], sortOption: string) => {
-  console.log(data, sortOption);
   switch (sortOption) {
     case "Name (A - Z)":
       return data.sort((a, b) =>

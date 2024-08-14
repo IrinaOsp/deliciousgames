@@ -199,13 +199,19 @@ export function ContactFormMissingParts() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl className="w-min grow">
                   <SelectTrigger>
-                    <SelectValue placeholder={t("reasonOfSalesReturnPlaceholder")} />
+                    <SelectValue
+                      placeholder={t("reasonOfSalesReturnPlaceholder")}
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="grow max-w-[500px] min-w-9 rounded-sm ">
                   <SelectGroup>
-                    <SelectItem value="Missing parts">{t("missingPartsSelect")}</SelectItem>
-                    <SelectItem value="Damaged parts">{t("damagedPartsSelect")}</SelectItem>
+                    <SelectItem value="Missing parts">
+                      {t("missingPartsSelect")}
+                    </SelectItem>
+                    <SelectItem value="Damaged parts">
+                      {t("damagedPartsSelect")}
+                    </SelectItem>
                     <SelectItem value="Other">{t("otherSelect")}</SelectItem>
                   </SelectGroup>
                 </SelectContent>
@@ -269,7 +275,7 @@ export function ContactFormMissingParts() {
             };
             const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               const newFile = e.target.files?.[0];
-              console.log(e.target.files?.[0]);
+
               if (newFile) {
                 setFile(newFile);
                 field.onChange(file);
