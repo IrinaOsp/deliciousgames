@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -31,6 +32,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { formSchema } from "./validation/schema";
 import { useProducts } from "@/hooks/useProducts";
 import { GAMES } from "@/data/gamesData";
+import { useTranslation } from "react-i18next";
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -38,7 +40,10 @@ export function ContactFormMissingParts() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [file, setFile] = useState<File | undefined>(undefined);
   const [isSending, setIsSending] = useState<boolean>(false);
-  const games = useProducts("none");
+  const locale = useParams<{ locale: string }>().locale;
+
+  const games = useProducts("none", locale);
+  const { t } = useTranslation("missingParts");
 
   const contactForm = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -59,7 +64,7 @@ export function ContactFormMissingParts() {
   async function onSubmit(data: FormData) {
     const recaptchaValue = recaptchaRef.current?.getValue();
     if (!recaptchaValue) {
-      alert("Please complete the reCAPTCHA");
+      alert(t("captcha"));
       return;
     }
 
@@ -83,14 +88,14 @@ export function ContactFormMissingParts() {
       if (response.ok) {
         setIsSending(false);
         contactForm.reset();
-        alert("Email submitted successfully");
+        alert(t("alertSuccess"));
       } else {
-        throw new Error("Failed to submit form");
+        throw new Error(t("errorSubmit"));
       }
     } catch (error) {
       setIsSending(false);
       console.error("Error submitting form", error);
-      alert("Error submitting form. Please try again later.");
+      alert(t("alertError"));
     }
   }
 
@@ -105,11 +110,11 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base inline-block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Your name & surname*
+                {`${t("nameLabel")}*`}
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your name & surname"
+                  placeholder={t("namePlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                       border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -126,11 +131,11 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Email*
+                {t("emailLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your email"
+                  placeholder={t("emailPlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                       border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -147,11 +152,11 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Shipping address*
+                {t("shippingAddressLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your shipping address"
+                  placeholder={t("shippingAddressPlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                       border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -168,11 +173,11 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Country*
+                {t("countryLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your country"
+                  placeholder={t("countryPlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                       border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -189,19 +194,19 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Reason of sales return*
+                {t("reasonOfSalesReturnLabel")}*
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl className="w-min grow">
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose an option" />
+                    <SelectValue placeholder={t("reasonOfSalesReturnPlaceholder")} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="grow max-w-[500px] min-w-9 rounded-sm ">
                   <SelectGroup>
-                    <SelectItem value="Missing parts">Missing parts</SelectItem>
-                    <SelectItem value="Damaged parts">Damaged parts</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
+                    <SelectItem value="Missing parts">{t("missingPartsSelect")}</SelectItem>
+                    <SelectItem value="Damaged parts">{t("damagedPartsSelect")}</SelectItem>
+                    <SelectItem value="Other">{t("otherSelect")}</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -215,12 +220,12 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Boardgame name*
+                {t("boardgameNameLabel")}*
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl className="w-min grow">
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose a game" />
+                    <SelectValue placeholder={t("boardgameNamePlaceholder")} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -241,11 +246,11 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Detail information*
+                {t("detailInfoLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Textarea
-                  placeholder="Details of sales return"
+                  placeholder={t("detailInfoPlaceholder")}
                   className="grow min-w-9 w-auto px-3 py-1.5 text-sm border rounded-sm border-zinc-300
                       active:border-slate-500 focus:border-slate-500 focus-within:border-slate-500"
                   {...field}
@@ -274,7 +279,7 @@ export function ContactFormMissingParts() {
             return (
               <FormItem className="flex flex-wrap items-baseline gap-2.5">
                 <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                  Image of damaged parts
+                  {t("imageLabel")}
                 </FormLabel>
                 <FormControl>
                   <button
@@ -283,7 +288,7 @@ export function ContactFormMissingParts() {
                     onClick={handleClick}
                   >
                     <FontAwesomeIcon icon={faUpload} className="mr-1.5" />
-                    Upload file
+                    {t("imageUploadButton")}
                     <Input
                       id="fileInput"
                       type="file"
@@ -303,7 +308,7 @@ export function ContactFormMissingParts() {
           render={({ field }) => (
             <FormItem className="space-y-0 flex flex-wrap items-center gap-2.5">
               <FormLabel className="text-base block w-max">
-                I have read and understand the Privacy Policy*
+                {t("privacyPolicy")}*
               </FormLabel>
               <FormControl className="w-max">
                 <Checkbox
@@ -320,7 +325,7 @@ export function ContactFormMissingParts() {
 
         <div className="flex flex-wrap gap-5 justify-start items-center">
           <span className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-            Please complete the captcha validation*
+            {t("captcha")}*
           </span>
           <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
@@ -334,7 +339,7 @@ export function ContactFormMissingParts() {
           disabled={isSending}
           className="mt-5 w-full p-[13px] bg-pink-600 text-white hover:bg-slate-500 uppercase text-sm leading-[14px]"
         >
-          {isSending ? "Sending..." : "Submit"}
+          {isSending ? `${t("buttonSending")}...` : t("button")}
         </Button>
       </form>
     </Form>

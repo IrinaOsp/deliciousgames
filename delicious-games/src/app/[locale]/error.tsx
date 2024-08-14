@@ -6,11 +6,9 @@ import { useTranslation } from "react-i18next";
 export default function Error({
   error,
   reset,
-  params: { locale },
 }: {
   error: Error & { digest?: string };
   reset: () => void;
-  params: { locale: string };
 }) {
   useEffect(() => {
     console.error(error);
