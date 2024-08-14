@@ -1,4 +1,4 @@
-import { GameDataToRender } from "@/app/components/slider/types/types";
+import { GameDataToRender } from "@/app/[locale]/components/slider/types/types";
 
 export const gamesForSlider: GameDataToRender[] = [
   {
