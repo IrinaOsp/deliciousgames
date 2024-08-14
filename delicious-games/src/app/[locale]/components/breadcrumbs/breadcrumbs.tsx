@@ -6,7 +6,7 @@ import { faArrowRightLong, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { pathToTitle } from "@/utils/utils";
 
-export default function Breadcrumbs() {
+export default function Breadcrumbs({ locale }: { locale: string }) {
   const paths = usePathname().split("/");
 
   return (
@@ -14,7 +14,7 @@ export default function Breadcrumbs() {
     paths[1] && (
       <div className="w-full border-b border-zinc-300">
         <div className="max-w-7xl w-full mx-auto p-2.5 pl-5 xl:pl-0 flex">
-          <Link href="/">
+          <Link href={`/${locale}`}>
             <FontAwesomeIcon
               icon={faHouse}
               className="text-slate-500 hover:text-stone-400"
@@ -22,7 +22,8 @@ export default function Breadcrumbs() {
           </Link>
           {paths.map(
             (path, index) =>
-              path && (
+              path &&
+              path !== locale && (
                 <div key={path}>
                   <FontAwesomeIcon
                     icon={faArrowRightLong}

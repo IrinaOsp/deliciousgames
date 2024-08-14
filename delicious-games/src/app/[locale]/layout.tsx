@@ -44,7 +44,7 @@ export default async function RootLayout({
           resources={resources}
         >
           <Header />
-          <Breadcrumbs />
+          <Breadcrumbs locale={locale} />
           <main className="w-full mx-auto text-zinc-600">{children}</main>
           <Footer locale={locale} />
         </TranslationsProvider>
