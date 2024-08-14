@@ -3,7 +3,7 @@ import Specification from "./components/specification/specification";
 import GameComponents from "./components/gameComponents/gameComponents";
 import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
 import qs from "qs";
-import NotFoundPage from "@/app/[locale]/not-found";
+import NotFoundPage from "@/app/not-found";
 import TechInfo from "./components/techInfo/techInfo";
 import { StrapiImage } from "../../components/UI/StrapiImage/StrapiImage";
 import PageHeading from "../../components/UI/pageHeading/pageHeading";
