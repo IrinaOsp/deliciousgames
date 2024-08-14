@@ -14,22 +14,31 @@ import { StrapiImage } from "../UI/StrapiImage/StrapiImage";
 import SliderArrow from "./components/SliderArrow";
 import { GameDataToRender, GameResponse } from "./types/types";
 import { gamesForSlider } from "@/data/sliderData";
+import { useParams } from "next/navigation";
 
-const gameQuery = qs.stringify(
-  {
-    fields: ["title", "path"],
-    populate: {
-      mainPageSlider: {
-        populate: {
-          banner: {
-            fields: ["url"],
-          },
-          bg: {
-            populate: {
-              formats: {
-                populate: {
-                  large: {
-                    fields: ["url"],
+export default function SliderWrapper() {
+  const [gamesData, setData] = useState<GameDataToRender[]>([]);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [isLocalData, setIsLocalData] = useState<boolean>(false);
+  const [animate, setAnimate] = useState(false);
+  const locale = useParams<{ locale: string }>().locale;
+
+  const gameQuery = qs.stringify(
+    {
+      fields: ["title", "path"],
+      populate: {
+        mainPageSlider: {
+          populate: {
+            banner: {
+              fields: ["url"],
+            },
+            bg: {
+              populate: {
+                formats: {
+                  populate: {
+                    large: {
+                      fields: ["url"],
+                    },
                   },
                 },
               },
@@ -37,18 +46,12 @@ const gameQuery = qs.stringify(
           },
         },
       },
+      locale,
     },
-  },
-  {
-    encodeValuesOnly: true,
-  }
-);
-
-export default function SliderWrapper() {
-  const [gamesData, setData] = useState<GameDataToRender[]>([]);
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const [isLocalData, setIsLocalData] = useState<boolean>(false);
-  const [animate, setAnimate] = useState(false);
+    {
+      encodeValuesOnly: true,
+    }
+  );
 
   useEffect(() => {
     async function getData() {
@@ -59,7 +62,6 @@ export default function SliderWrapper() {
         const { data }: { data: GameResponse[] } = await fetch(url.href).then(
           (res) => res.json()
         );
-        console.log(data);
         const mappedData = data.map((el) => {
           return {
             bgImg:
@@ -67,7 +69,7 @@ export default function SliderWrapper() {
             banner: el.attributes.mainPageSlider.banner.data.attributes.url,
             bottomBtn: el.attributes.mainPageSlider.buttonText,
             topBtn: el.attributes.mainPageSlider.topTitle || "",
-            linkToGame: `catalog/${el.attributes.path}`,
+            linkToGame: `${locale}/catalog/${el.attributes.path}`,
           };
         });
         setData(mappedData);

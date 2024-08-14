@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import Slider, { CustomArrowProps, Settings } from "react-slick";
 import "./productsSlider.css";
 import { useProducts } from "@/hooks/useProducts";
@@ -17,7 +18,8 @@ function SampleArrow(props: CustomArrowProps) {
 }
 
 export default function ProductsSlider() {
-  const products = useProducts("box");
+  const locale = useParams<{ locale: string }>().locale;
+  const products = useProducts("box", locale);
 
   const settings: Settings = {
     dots: true,

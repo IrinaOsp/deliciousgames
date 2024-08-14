@@ -36,7 +36,6 @@ export const useProducts = (
         const baseUrl = getStrapiURL();
         const url = new URL("/api/games", baseUrl);
         url.search = productsQuery;
-        console.log(locale, url.href);
         const res: GetProductsResponse = await fetch(url.href).then((res) =>
           res.json()
         );
