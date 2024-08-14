@@ -4,9 +4,11 @@ import {
   faEnvelope,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { COMPANY_ADDRESS, EMAILS, INVOICE_DATA } from "@/data/contactsData";
+import { getDictionary } from "@/dictionaries";
+import { EMAILS, INVOICE_DATA } from "@/data/contactsData";
 
-export default function ContactCards() {
+export default async function ContactCards({ locale }: { locale: string }) {
+  const dict = await getDictionary(locale, "contactUs");
   return (
     <>
       <div className="flex items-center justify-start p-2.5 rounded-[5px] bg-white">
@@ -18,20 +20,13 @@ export default function ContactCards() {
         </div>
         <div>
           <h5 className="uppercase font-bold text-sm font-redHat">
-            Company address
+            {dict["CompanyAddress"]}
           </h5>
           <p className="text-[13px]">
-            {COMPANY_ADDRESS.map((el, ind) =>
-              ind === 0 ? (
-                <strong key={el} className="block">
-                  {el}
-                </strong>
-              ) : (
-                <span key={el} className="block">
-                  {el}
-                </span>
-              )
-            )}
+            <strong className="block">Kateřina Suchá</strong>
+            <span className="block">Kettnerova 2051</span>
+            <span className="block">{`15500 ${dict["city"]}`}</span>
+            <span className="block">{dict["country"]}</span>
           </p>
         </div>
       </div>
@@ -44,12 +39,12 @@ export default function ContactCards() {
         </div>
         <div>
           <h5 className="uppercase font-bold text-sm  font-redHat">
-            INVOICE DATA
+            {dict["InvoiceData"]}
           </h5>
           <p className="text-[13px]">
             {INVOICE_DATA.map(({ item, value }) => (
               <span key={item} className="block">
-                <strong> {item}</strong>: <span> {value}</span>
+                <strong>{dict[item]}</strong>: <span> {value}</span>
               </span>
             ))}
           </p>
@@ -65,12 +60,14 @@ export default function ContactCards() {
           />
         </div>
         <div>
-          <h5 className="uppercase font-bold text-sm font-redHat">CONTACTS</h5>
+          <h5 className="uppercase font-bold text-sm font-redHat">
+            {dict["Contacts"]}
+          </h5>
           <p className="text-[13px]">
             {EMAILS.map(({ item, value }) => (
               <span key={item} className="flex flex-wrap">
-                <strong className="block">{item}</strong>
-                <span>: </span>
+                <strong className="block">{dict[item]}</strong>
+                <span className="block mr-0.5">: </span>
                 <span>{value}</span>
               </span>
             ))}

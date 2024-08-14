@@ -19,13 +19,14 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { shortFormSchema } from "./validation/schema";
-import { useProducts } from "@/hooks/useProducts";
+import { useTranslation } from "react-i18next";
 
 type FormData = z.infer<typeof shortFormSchema>;
 
 export function ContactForm() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSending, setIsSending] = useState<boolean>(false);
+  const { t } = useTranslation("contactUs");
 
   const shortContactForm = useForm<FormData>({
     resolver: zodResolver(shortFormSchema),
@@ -41,7 +42,7 @@ export function ContactForm() {
   async function onSubmit(data: FormData) {
     const recaptchaValue = recaptchaRef.current?.getValue();
     if (!recaptchaValue) {
-      alert("Please complete the reCAPTCHA");
+      alert(t("captcha"));
       return;
     }
 
@@ -60,14 +61,14 @@ export function ContactForm() {
       if (response.ok) {
         setIsSending(false);
         shortContactForm.reset();
-        alert("Email submitted successfully");
+        alert(t("alertSuccess"));
       } else {
-        throw new Error("Failed to submit form");
+        throw new Error(t("errorSubmit"));
       }
     } catch (error) {
       setIsSending(false);
       console.error("Error submitting form", error);
-      alert("Error submitting form. Please try again later.");
+      alert(t("alertError"));
     }
   }
 
@@ -82,11 +83,11 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base inline-block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Your name & surname*
+                {t("nameLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your name & surname"
+                  placeholder={t("namePlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                     border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -103,11 +104,11 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Email*
+                {t("emailLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Input
-                  placeholder="Your email"
+                  placeholder={t("emailPlaceholder")}
                   className="grow max-w-[500px] min-w-9 rounded-sm 
                     border border-zinc-300 focus-visible:ring-0 focus-visible:border-slate-500 focus-within:border-slate-500"
                   type="text"
@@ -124,11 +125,11 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem className="flex flex-wrap items-baseline gap-2.5">
               <FormLabel className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-                Message*
+                {t("messageLabel")}*
               </FormLabel>
               <FormControl className="w-min">
                 <Textarea
-                  placeholder="Message"
+                  placeholder={t("messagePlaceholder")}
                   className="grow min-w-9 w-auto px-3 py-1.5 text-sm border rounded-sm border-zinc-300
                             active:border-slate-500 focus:border-slate-500 focus-within:border-slate-500"
                   {...field}
@@ -144,7 +145,7 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem className="space-y-0 flex flex-wrap items-center gap-2.5">
               <FormLabel className="text-base block w-max">
-                I have read and understand the Privacy Policy*
+                {t("privacyPolicy")}*
               </FormLabel>
               <FormControl className="w-max">
                 <Checkbox
@@ -161,7 +162,7 @@ export function ContactForm() {
 
         <div className="flex flex-wrap gap-5 justify-start items-center">
           <span className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
-            Please complete the captcha validation*
+            {t("captcha")}*
           </span>
           <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
@@ -176,7 +177,7 @@ export function ContactForm() {
           disabled={isSending}
           className="mt-5 w-full p-[13px] bg-pink-600 text-white hover:bg-slate-500 uppercase text-sm leading-[14px]"
         >
-          {isSending ? "Sending..." : "Submit"}
+          {isSending ? `${t("buttonSending")}...` : t("button")}
         </Button>
       </form>
     </Form>
