@@ -4,10 +4,12 @@ import { useProducts } from "@/hooks/useProducts";
 
 export default function DropDownMenu({
   setDropDownMenuVisibility,
+  locale,
 }: {
   setDropDownMenuVisibility: Dispatch<SetStateAction<boolean>>;
+  locale: string;
 }) {
-  const products = useProducts("main");
+  const products = useProducts("main", locale);
 
   const handleDropDownEnter = () => {
     setDropDownMenuVisibility(true);

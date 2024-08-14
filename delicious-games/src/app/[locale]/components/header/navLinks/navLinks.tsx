@@ -18,6 +18,7 @@ import CatalogLinks from "../catalogLinks/catalogLinks";
 import PlusButton from "../../UI/plusButton/plusButton";
 import DropDownMenu from "../dropDownMenu/dropDownMenu";
 import { useTranslation } from "react-i18next";
+import { useParams } from "next/navigation";
 
 const MENU_ICONS: IconDefinition[] = [
   faBars,
@@ -33,6 +34,7 @@ export default function NavLinks() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const mobileMenu = useRef<null | HTMLDivElement>(null);
+  const locale = useParams<{ locale: string }>().locale;
 
   const { t } = useTranslation();
 
@@ -136,10 +138,13 @@ export default function NavLinks() {
                     dispatch={setIsCatalogOpen}
                   />
                 )}
-                {isMenuOpen && isCatalogOpen && <CatalogLinks />}
+                {isMenuOpen && isCatalogOpen && (
+                  <CatalogLinks locale={locale} />
+                )}
                 {isDropdownVisible && (
                   <DropDownMenu
                     setDropDownMenuVisibility={setDropdownVisible}
+                    locale={locale}
                   />
                 )}
               </li>

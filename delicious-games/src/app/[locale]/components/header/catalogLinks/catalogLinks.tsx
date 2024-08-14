@@ -1,8 +1,8 @@
 import CatalogLink from "../catalogLink/catalogLink";
 import { useProducts } from "@/hooks/useProducts";
 
-export default function CatalogLinks() {
-  const products = useProducts("main");
+export default function CatalogLinks({ locale }: { locale: string }) {
+  const products = useProducts("main", locale);
 
   return (
     <div className="w-full transition-transform">
