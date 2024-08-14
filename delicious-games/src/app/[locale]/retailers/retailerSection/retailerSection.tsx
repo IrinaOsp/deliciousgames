@@ -1,14 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { CountryData } from "@/data/retailersData";
+import { getDictionary } from "@/dictionaries";
 
-export default function RetailerSection({
+export default async function RetailerSection({
   heading,
   section,
+  locale,
 }: {
   heading: string;
   section: CountryData[];
+  locale: string;
 }) {
+  const dict = await getDictionary(locale, "retailers");
+
   return (
     <>
       <h2 className="text-pink-600 text-[32px] mb-[15px] font-bold">
@@ -25,7 +30,7 @@ export default function RetailerSection({
       {section.map((partner) => (
         <div key={partner.country}>
           <h4 className="uppercase mb-[15px] font-bold text-lg">
-            {partner.country}
+            {dict[partner.country]}
           </h4>
           {partner.entries.map((entry) => (
             <p key={entry.partnerName} className="mb-[15px] text-[15px]">
