@@ -11,7 +11,8 @@ export default function Breadcrumbs({ locale }: { locale: string }) {
 
   return (
     paths.length > 1 &&
-    paths[1] && (
+    paths[1] &&
+    paths[1] !== locale && (
       <div className="w-full border-b border-zinc-300">
         <div className="max-w-7xl w-full mx-auto p-2.5 pl-5 xl:pl-0 flex">
           <Link href={`/${locale}`}>

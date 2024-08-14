@@ -18,7 +18,6 @@ export default function LangSwitch() {
   const [isDropDownVisible, setDropDownVisible] = useState(false);
 
   const handleLangChange = (lang: "en" | "cs") => {
-    console.log(lang);
     setLanguage(lang);
     const newLocale = lang;
 

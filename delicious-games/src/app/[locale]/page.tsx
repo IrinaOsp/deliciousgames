@@ -3,11 +3,11 @@ import SellOffer from "./components/sellOffer/sellOffer";
 import SliderWrapper from "./components/slider/slider";
 import PageHeading from "./components/UI/pageHeading/pageHeading";
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
   return (
     <section className="flex min-h-screen flex-col items-center justify-between">
       <SliderWrapper />
-      <SellOffer />
+      <SellOffer locale={params.locale} />
       <section className="w-full max-w-7xl py-10 px-5">
         <PageHeading
           title="OUR GAMES"
