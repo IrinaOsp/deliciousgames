@@ -1,11 +1,17 @@
 import PageHeading from "@/app/[locale]/components/UI/pageHeading/pageHeading";
 import { StrapiImage } from "@/app/[locale]/components/UI/StrapiImage/StrapiImage";
 
-export default function GameComponents({ img }: { img: string }) {
+export default function GameComponents({
+  img,
+  locale,
+}: {
+  img: string;
+  locale: string;
+}) {
   return (
     <section>
       <PageHeading
-        title="Components"
+        title={locale === "cs" ? "Obsah krabice:" : "Components:"}
         headingLvl={3}
         styles={{ fontSize: "14px", color: "white" }}
       />

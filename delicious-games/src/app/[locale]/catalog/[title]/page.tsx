@@ -8,13 +8,14 @@ import TechInfo from "./components/techInfo/techInfo";
 import { StrapiImage } from "../../components/UI/StrapiImage/StrapiImage";
 import PageHeading from "../../components/UI/pageHeading/pageHeading";
 import SellOffer from "../../components/sellOffer/sellOffer";
+import { getDictionary } from "@/dictionaries";
 
 const ImagesSlider = dynamic(
   () => import("./components/imgsSlider/imgsSlider")
 );
 const RulesSection = dynamic(() => import("./components/rules/rulesSection"));
 
-async function getData(path: string) {
+async function getData(path: string, locale: string) {
   const gameQuery = qs.stringify(
     {
       filters: {
@@ -52,6 +53,7 @@ async function getData(path: string) {
           },
         },
       },
+      locale,
     },
     {
       encodeValuesOnly: true,
@@ -73,9 +75,11 @@ async function getData(path: string) {
 export default async function DetailedPage({
   params,
 }: {
-  params: { title: string };
+  params: { locale: string; title: string };
 }) {
-  const res = await getData(params.title);
+  const dict = await getDictionary(params.locale, "gamePage");
+
+  const res = await getData(params.title, params.locale);
   // console.log(res);
   if (!res || res.data.length === 0) return <NotFoundPage />;
   const data = res.data[0].attributes;
@@ -125,25 +129,31 @@ export default async function DetailedPage({
                 players={data.specification.playersNumber}
                 playingTime={data.specification.playingTime}
                 minAge={data.specification.minAge}
+                locale={params.locale}
               />
             </div>
           </div>
         </section>
         {data.images.components.data.attributes.url && (
-          <GameComponents img={data.images.components.data.attributes.url} />
+          <GameComponents
+            img={data.images.components.data.attributes.url}
+            locale={params.locale}
+          />
         )}
         {data.videos[0] && (
-          <ImagesSlider data={data.videos} title={"Videos:"} />
+          <ImagesSlider data={data.videos} title={`${dict["videos"]}:`} />
         )}
         {data.images.sliderImages.data && (
           <ImagesSlider
             data={data.images.sliderImages.data}
-            title={"Images:"}
+            title={`${dict["images"]}:`}
           />
         )}
-        {data.rules.length && <RulesSection rules={data.rules} />}
+        {data.rules.length && (
+          <RulesSection rules={data.rules} locale={params.locale} />
+        )}
       </div>
-      <SellOffer />
+      <SellOffer locale={params.locale} />
     </div>
   );
 }

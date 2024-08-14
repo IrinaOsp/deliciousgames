@@ -17,11 +17,17 @@ type Rules = {
   };
 };
 
-export default function RulesSection({ rules }: { rules: Rules[] }) {
+export default function RulesSection({
+  rules,
+  locale,
+}: {
+  rules: Rules[];
+  locale: string;
+}) {
   return (
     <section>
       <PageHeading
-        title="RULES DOWNLOAD:"
+        title={locale === "cs" ? "Soubory ke stažení:" : "RULES DOWNLOAD:"}
         headingLvl={3}
         styles={{ fontSize: "14px", color: "white" }}
       />

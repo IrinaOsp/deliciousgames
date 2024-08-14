@@ -23,7 +23,7 @@ export default function DropDownMenuItem({
         className="p-2.5 text-zinc-800 hover:bg-pink-600"
       >
         <Link
-          href={`${Routes.CATALOGUE}/${link}`}
+          href={`/${Routes.CATALOGUE}/${link}`}
           className="min-w-min font-normal capitalize"
         >
           {title.toLowerCase()}
