@@ -1,11 +1,11 @@
 export enum Routes {
   HOME = "/",
-  ABOUT = "/about-us",
-  SELLERS = "/retailers",
-  CONTACT = "/contact",
-  BLOG = "/blog",
-  CATALOGUE = "/catalog",
-  MISSING_PARTS = "/missing-parts",
+  ABOUT = "about-us",
+  SELLERS = "retailers",
+  CONTACT = "contact",
+  BLOG = "blog",
+  CATALOGUE = "catalog",
+  MISSING_PARTS = "missing-parts",
 }
 
 export const MENU_LINKS = [

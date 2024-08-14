@@ -127,7 +127,7 @@ export default function NavLinks() {
                     className="w-5 inline mr-2"
                   />
                   <span className="pr-4 border-r-[1px] border-dotted">
-                    {t(link.slice(1))}
+                    {t(link)}
                   </span>
                 </Link>
                 {isMenuOpen && (
@@ -156,7 +156,7 @@ export default function NavLinks() {
                   href={link}
                   className="hover:underline hover:decoration-pink-500 underline-offset-2"
                 >
-                  {t(link.slice(1))}
+                  {t(link)}
                 </Link>
               </li>
             )

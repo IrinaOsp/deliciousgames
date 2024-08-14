@@ -46,7 +46,7 @@ export default async function RootLayout({
           <Header />
           <Breadcrumbs />
           <main className="w-full mx-auto text-zinc-600">{children}</main>
-          <Footer />
+          <Footer locale={locale} />
         </TranslationsProvider>
       </body>
     </html>
