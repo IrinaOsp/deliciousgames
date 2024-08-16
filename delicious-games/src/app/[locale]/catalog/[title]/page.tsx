@@ -9,6 +9,7 @@ import PageHeading from "../../components/UI/pageHeading/pageHeading";
 import SellOffer from "../../components/sellOffer/sellOffer";
 import { getDictionary } from "@/dictionaries";
 import { redirect } from "next/navigation";
+import GameComponentsList from "./components/gameComponentsList/gameComponentsList";
 
 const ImagesSlider = dynamic(
   () => import("./components/imgsSlider/imgsSlider")
@@ -52,6 +53,7 @@ async function getData(path: string, locale: string) {
             },
           },
         },
+        gameComponents: "*",
       },
       locale,
     },
@@ -64,7 +66,6 @@ async function getData(path: string, locale: string) {
 
     const url = new URL("/api/games", baseUrl);
     url.search = gameQuery;
-
     const res = await fetch(url.href).then((res) => res.json());
     return res;
   } catch (error) {
@@ -136,6 +137,12 @@ export default async function DetailedPage({
         {data.images.components.data.attributes.url && (
           <GameComponents
             img={data.images.components.data.attributes.url}
+            locale={params.locale}
+          />
+        )}
+        {data.gameComponents && (
+          <GameComponentsList
+            components={data.gameComponents.components}
             locale={params.locale}
           />
         )}

@@ -4,6 +4,7 @@ import { faArrowRight, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import TechInfoDetails from "./TechInfoDetails/TechInfoDetails";
+import { useTranslation } from "react-i18next";
 
 export type TechInfoProps = {
   id: number;
@@ -21,6 +22,8 @@ export default function TechInfo({ data }: { data: TechInfoProps }) {
   const [open, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const { t } = useTranslation("gamePage");
+
   return (
     <div className="border border-pink-600 border-dotted">
       <button
@@ -31,7 +34,7 @@ export default function TechInfo({ data }: { data: TechInfoProps }) {
           icon={open ? faArrowDown : faArrowRight}
           className="mr-1"
         />
-        Technical information (click for details)
+        {t("techInfo")}
       </button>
       <div
         ref={contentRef}
@@ -40,7 +43,7 @@ export default function TechInfo({ data }: { data: TechInfoProps }) {
           maxHeight: open ? `${contentRef.current?.scrollHeight}px` : "0px",
         }}
       >
-        <TechInfoDetails data={data} />
+        <TechInfoDetails data={data} t={t} />
       </div>
     </div>
   );

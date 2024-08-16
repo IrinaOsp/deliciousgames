@@ -18,7 +18,13 @@ export const metadata: Metadata = {
   description: "Boardgames for all tastes",
 };
 
-const i18nNamespaces = ["header", "catalog", "contactUs", "missingParts"];
+const i18nNamespaces = [
+  "header",
+  "catalog",
+  "gamePage",
+  "contactUs",
+  "missingParts",
+];
 
 export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
