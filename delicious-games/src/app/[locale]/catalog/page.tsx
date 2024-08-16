@@ -12,6 +12,7 @@ import { sortData } from "../../../utils/utils";
 import { getStrapiURL } from "../../../utils/strapi";
 import PageHeading from "../components/UI/pageHeading/pageHeading";
 import { ResponseCatalogItem } from "@/types/types";
+import Loading from "../loading";
 
 export default function Catalog({
   params: { locale },
@@ -160,21 +161,23 @@ export default function Catalog({
             layout === "list" ? "flex-col" : "flex-row"
           }`}
         >
-          {isLoading
-            ? "Loading..."
-            : data.map((el: any) => (
-                <GameCard
-                  view={layout}
-                  key={el.id}
-                  title={el.attributes.title}
-                  description={el.attributes.description}
-                  image={el.attributes.images.box.data.attributes.url}
-                  price={el.attributes.price[0].price}
-                  tax={el.attributes.tax}
-                  label={el.attributes.label}
-                  path={el.attributes.path}
-                />
-              ))}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            data.map((el: any) => (
+              <GameCard
+                view={layout}
+                key={el.id}
+                title={el.attributes.title}
+                description={el.attributes.description}
+                image={el.attributes.images.box.data.attributes.url}
+                price={el.attributes.price[0].price}
+                tax={el.attributes.tax}
+                label={el.attributes.label}
+                path={el.attributes.path}
+              />
+            ))
+          )}
         </div>
         <div>{error && <p className="text-red-500">{error}</p>}</div>
       </div>
