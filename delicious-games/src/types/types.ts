@@ -78,10 +78,10 @@ type BlogImage = {
 
 export type BlogPostType = {
   path: string;
-  title: string;
+  title: { en: string; cs: string };
   date: string;
   images: BlogImage[];
-  text: string[];
+  text: { en: string[]; cs: string[] };
   tags?: string[];
   relatedProductsPaths?: string[];
 };

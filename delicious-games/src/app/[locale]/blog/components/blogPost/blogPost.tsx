@@ -3,7 +3,13 @@ import Link from "next/link";
 import { BlogPostType } from "@/types/types";
 import { trimText } from "@/utils/utils";
 
-export default function BlogPost({ post }: { post: BlogPostType }) {
+export default function BlogPost({
+  post,
+  locale,
+}: {
+  post: BlogPostType;
+  locale: "en" | "cs";
+}) {
   const { title, path, date, images, text } = post;
 
   return (
@@ -15,7 +21,7 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
           </span>
           <Image
             src={images[0].path}
-            alt={images[0].name || title}
+            alt={images[0].name || title[locale]}
             width={500}
             height={300}
             className="max-h-[284px] h-full w-auto object-cover hover:transition hover:scale-110"
@@ -27,12 +33,12 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
           href={`blog/${path}`}
           className="text-sky-900 hover:text-pink-600 text-base font-bold"
         >
-          {title}
+          {title[locale]}
         </Link>
       </div>
       <p className="max-md:hidden mb-2.5">
-        {text[0] &&
-          trimText(text[0], 200)
+        {text[locale][0] &&
+          trimText(text[locale][0], 200)
             .replace(/\<[^>]*\>/g, "")
             .replace("/n", "")}
       </p>
@@ -41,7 +47,7 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
           href={`blog/${path}`}
           className="block h-max p-3 mb-2.5 text-white w-max mx-auto bg-zinc-500 hover:bg-pink-600 uppercase"
         >
-          Read more
+          {locale === "cs" ? "Více zde" : "Read more"}
         </Link>
       </div>
     </div>

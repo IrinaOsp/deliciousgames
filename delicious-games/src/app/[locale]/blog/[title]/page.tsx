@@ -6,8 +6,12 @@ import RelatedProducts from "./relatedProducts/RelatedProducts";
 import Blockquote from "../../components/UI/blockquote/blockquote";
 import PageHeading from "../../components/UI/pageHeading/pageHeading";
 
-export default function BlogPage({ params }: { params: { title: string } }) {
-  const { title } = params;
+export default function BlogPage({
+  params,
+}: {
+  params: { title: string; locale: "en" | "cs" };
+}) {
+  const { title, locale } = params;
   const blogPost = BLOG_POSTS.find((post) => post.path === title);
 
   if (!blogPost) {
@@ -15,7 +19,7 @@ export default function BlogPage({ params }: { params: { title: string } }) {
   }
 
   const getParagraphs = (i: number) => {
-    return blogPost.text[i]
+    return blogPost.text[locale][i]
       .split("/n")
       .map((parag, id) =>
         parag.startsWith("blockquote: ") ? (
@@ -35,20 +39,20 @@ export default function BlogPage({ params }: { params: { title: string } }) {
 
   return (
     <div className="py-5 pr-5 mr-0 ml-auto max-w-[760px] blog-post">
-      <PageHeading title={blogPost.title} />
+      <PageHeading title={blogPost.title[locale]} />
       <div className="relative">
         <span className="block absolute top-0 left-0 z-10 w-min m-1 bg-pink-600 text-white text-xs text-wrap py-1 px-2.5">
           {blogPost.date}
         </span>
         <Image
           src={blogPost.images[0].path}
-          alt={blogPost.images[0].name || blogPost.title}
+          alt={blogPost.images[0].name || blogPost.title[locale]}
           width={740}
           height={400}
           className="w-full h-48 object-cover mb-5"
         />
       </div>
-      {blogPost.text[0] && <div>{getParagraphs(0)}</div>}
+      {blogPost.text[locale][0] && <div>{getParagraphs(0)}</div>}
       {blogPost.images.length > 1 &&
         blogPost.images.map(
           (img, ind) =>
@@ -56,7 +60,7 @@ export default function BlogPage({ params }: { params: { title: string } }) {
               <div key={img.path}>
                 <Image
                   src={img.path}
-                  alt={img.name || blogPost.title}
+                  alt={img.name || blogPost.title[locale]}
                   width={740}
                   height={400}
                   className="mb-2.5"
@@ -66,12 +70,12 @@ export default function BlogPage({ params }: { params: { title: string } }) {
                     {img.name}
                   </p>
                 )}
-                {blogPost.text[ind] && getParagraphs(ind)}
+                {blogPost.text[locale][ind] && getParagraphs(ind)}
               </div>
             )
         )}
-      {blogPost.text[blogPost.images.length] &&
-        blogPost.text.map(
+      {blogPost.text[locale][blogPost.images.length] &&
+        blogPost.text[locale].map(
           (_, id) =>
             id >= blogPost.images.length && (
               <div key={id}>{getParagraphs(id)}</div>

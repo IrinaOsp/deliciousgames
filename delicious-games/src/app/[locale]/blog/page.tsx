@@ -4,11 +4,13 @@ import { BlogPostType } from "@/types/types";
 import PageHeading from "../components/UI/pageHeading/pageHeading";
 
 export default function Blog({
-  searchParams,
+  params,
 }: {
-  searchParams: { [key: string]: string };
+  params: { [key: string]: string };
 }) {
-  const { journal_blog_tag, journal_blog_search } = searchParams;
+  const { journal_blog_tag, journal_blog_search } = params;
+  const locale =
+    params.locale === "en" || params.locale === "cs" ? params.locale : "en";
 
   const getBlogPosts: () => BlogPostType[] = () => {
     if (journal_blog_tag) {
@@ -19,10 +21,10 @@ export default function Blog({
     if (journal_blog_search) {
       return BLOG_POSTS.filter(
         (post) =>
-          post.title
+          post.title[locale]
             .toLowerCase()
             .includes(journal_blog_search.toLowerCase()) ||
-          post.text
+          post.text[locale]
             .join(" ")
             .toLowerCase()
             .includes(journal_blog_search.toLowerCase())
@@ -36,7 +38,7 @@ export default function Blog({
       <PageHeading title={"Blog"} />
       <div className="grid grid-cols-2 auto-rows-fr gap-x-2.5 gap-y-5">
         {getBlogPosts().map((post) => (
-          <BlogPost key={post.path} post={post} />
+          <BlogPost key={post.path} post={post} locale={locale} />
         ))}
       </div>
     </div>
