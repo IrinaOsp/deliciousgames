@@ -20,7 +20,7 @@ export default function CatalogLink({
       className="w-full flex flex-wrap justify-between py-1 text-slate-300 hover:text-slate-100"
     >
       <Link
-        href={"catalog/" + link}
+        href={"/catalog/" + link}
         className="block pr-2 max-w-[calc(100%-20px)] uppercase overflow-x-hidden text-ellipsis text-[13px]"
       >
         {title}

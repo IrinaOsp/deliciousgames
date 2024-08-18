@@ -6,7 +6,7 @@ import { Product } from "@/types/types";
 export default function GameBox({ el }: { el: Product }) {
   return (
     <Link
-      href={`${Routes.CATALOGUE}/${el.path}`}
+      href={`/${Routes.CATALOGUE}/${el.path}`}
       key={el.title}
       className="group"
     >

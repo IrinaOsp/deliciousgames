@@ -25,7 +25,7 @@ export default async function Footer({ locale }: { locale: string }) {
             <ul>
               {links.map(({ page, link }) => (
                 <li key={link} className="capitalize hover:text-pink-600">
-                  <Link href={link}>{dict[page]}</Link>
+                  <Link href={`/${link}`}>{dict[page]}</Link>
                 </li>
               ))}
             </ul>

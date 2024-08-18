@@ -119,7 +119,7 @@ export default function NavLinks() {
                 } relative flex flex-wrap items-center mr-4 px-2 py-[10px] hover:text-slate-100 font-bold text-lg`}
               >
                 <Link
-                  href={link}
+                  href={`/${link}`}
                   className={`${
                     isMenuOpen && "p-2.5"
                   } inline-flex items-center`}
@@ -158,7 +158,7 @@ export default function NavLinks() {
                   className="w-4 inline mr-1 group-hover:text-pink-500"
                 />
                 <Link
-                  href={link}
+                  href={`/${link}`}
                   className="hover:underline hover:decoration-pink-500 underline-offset-2"
                 >
                   {t(link)}

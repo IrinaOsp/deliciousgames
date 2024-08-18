@@ -2,6 +2,7 @@ import Image from "next/image";
 import PageHeading from "../UI/pageHeading/pageHeading";
 import MainButton from "../UI/button/mainButton";
 import { getDictionary } from "@/dictionaries";
+import { Routes } from "@/data/data";
 
 export default async function SellOffer({ locale }: { locale: string }) {
   const dict = await getDictionary(locale, "sellOffer");
@@ -32,7 +33,7 @@ export default async function SellOffer({ locale }: { locale: string }) {
         </div>
         <div className="scale-150 md:mx-8">
           <MainButton
-            link="contact"
+            link={`/${Routes.CONTACT}`}
             text={`${dict["button"]}!`}
             styles={{ padding: "13px" }}
           />
