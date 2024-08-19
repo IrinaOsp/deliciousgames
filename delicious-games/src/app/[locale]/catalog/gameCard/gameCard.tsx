@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { trimText } from "../../../../utils/utils";
 import { GameCardInfo } from "@/types/types";
 import { StrapiImage } from "../../components/UI/StrapiImage/StrapiImage";
@@ -10,8 +11,8 @@ export default function GameCard({
   description,
   price,
   tax,
-  label,
   path,
+  gameTag,
 }: GameCardInfo) {
   return (
     <div
@@ -21,18 +22,30 @@ export default function GameCard({
     >
       <div className="sm:size-[250px] relative">
         <Link href={`/catalog/${path}`}>
-          {label && (
-            <div className="absolute z-10 top-0 left-0 w-full bg-transparent text-white text-xs flex items-center justify-end">
-              <span className="bg m-2.5">
-                <b
-                  className={`block py-2.5 px-5 ${
-                    label.toLowerCase() === "new"
-                      ? "bg-green-500"
-                      : "bg-pink-600"
-                  } text-white text-xs leading-3 rounded-[20px] uppercase`}
-                >
-                  {label}
-                </b>
+          {gameTag && (
+            <div
+              className={`absolute z-10 top-0 left-0 w-full  bg-transparent text-white text-xs flex items-center justify-end `}
+            >
+              <span
+                className={`flex items-center m-2.5 p-2.5 rounded-[20px] ${
+                  gameTag.toLowerCase() === "new" ||
+                  gameTag.toLowerCase() === "novinka"
+                    ? "bg-green-500"
+                    : "bg-pink-600 px-5"
+                }`}
+              >
+                {(gameTag.toLowerCase() === "new" ||
+                  gameTag.toLowerCase() === "novinka") && (
+                  <span className="block size-3.5 mr-1">
+                    <Image
+                      src="/icons/tag.svg"
+                      alt="new"
+                      width={14}
+                      height={14}
+                    />
+                  </span>
+                )}
+                <b className={`block leading-3 uppercase`}>{gameTag}</b>
               </span>
             </div>
           )}

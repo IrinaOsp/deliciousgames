@@ -31,18 +31,18 @@ export default function BlogPost({
       <div className="py-2.5">
         <Link
           href={`blog/${path}`}
-          className="text-sky-900 hover:text-pink-600 text-base font-bold"
+          className="block text-sky-900 w-full truncate hover:text-pink-600 text-base font-bold"
         >
           {title[locale]}
         </Link>
       </div>
-      <p className="max-md:hidden mb-2.5">
+      <p className="max-md:hidden mb-2.5 overflow-y-clip text-ellipsis h-[72px]">
         {text[locale][0] &&
           trimText(text[locale][0], 200)
             .replace(/\<[^>]*\>/g, "")
             .replace("/n", "")}
       </p>
-      <div className="grow flex items-end">
+      <div className="grow flex items-end max-md:hidden">
         <Link
           href={`blog/${path}`}
           className="block h-max p-3 mb-2.5 text-white w-max mx-auto bg-zinc-500 hover:bg-pink-600 uppercase"

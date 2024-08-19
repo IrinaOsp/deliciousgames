@@ -1,14 +1,15 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PageHeading from "@/app/[locale]/components/UI/pageHeading/pageHeading";
+import Videos from "./Videos/Videos";
 
-export default function AsidePanel() {
+export default function AsidePanel({ locale }: { locale: string }) {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -23,14 +24,14 @@ export default function AsidePanel() {
   return (
     <aside className="border-l-[1px] w-60 border-zinc-300 p-5 max-md:hidden">
       <PageHeading
-        title="Blog search"
+        title="Vyhledávání v blogu"
         headingLvl={3}
         styles={{ fontSize: "16px" }}
       />
       <form onSubmit={handleSubmit} className="flex">
         <Input
           type="text"
-          placeholder="search"
+          placeholder={locale === "cs" ? "hledaný výraz" : "search"}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -39,10 +40,11 @@ export default function AsidePanel() {
         </Button>
       </form>
       <PageHeading
-        title="Videos:"
+        title={locale === "cs" ? "Videa:" : "Videos:"}
         headingLvl={3}
         styles={{ fontSize: "26px", marginTop: "30px" }}
       />
+      <Videos locale={locale} />
     </aside>
   );
 }

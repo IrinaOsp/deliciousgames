@@ -5,19 +5,22 @@
   background-color: rgb(15, 86, 132);
   width: 25px;
   height: 25px;
-  opacity: 0.7;
+  opacity: 0;
 }
-.slick-arrow.slick-arrow-custom:hover {
-  opacity: 1;
-  background-color: rgb(15, 86, 132);
+.slick-slider.slick-initialized:hover {
+  .slick-arrow.slick-arrow-custom {
+    opacity: 0.7;
+  }
+  .slick-arrow.slick-arrow-custom:hover {
+    opacity: 1;
+    background-color: rgb(15, 86, 132);
+  }
 }
 .slick-arrow.slick-arrow-custom::before {
-  border: none;
-  line-height: 2;
-  content: "<";
+  display: none;
 }
 .slick-arrow.slick-next.slick-arrow-custom::before {
-  content: ">";
+  display: none;
 }
 @media screen and (max-width: 640px) {
   .slick-arrow.slick-arrow-custom {

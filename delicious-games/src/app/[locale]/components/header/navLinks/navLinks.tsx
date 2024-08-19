@@ -153,15 +153,15 @@ export default function NavLinks() {
                 key={page}
                 className="lg:lg:ml-5 p-2 hover:text-slate-100 group"
               >
-                <FontAwesomeIcon
-                  icon={MENU_ICONS[ind]}
-                  className="w-4 inline mr-1 group-hover:text-pink-500"
-                />
                 <Link
                   href={`/${link}`}
                   className="hover:underline hover:decoration-pink-500 underline-offset-2"
                 >
-                  {t(link)}
+                  <FontAwesomeIcon
+                    icon={MENU_ICONS[ind]}
+                    className="w-4 inline mr-1 group-hover:text-pink-500"
+                  />
+                  <span>{t(link)}</span>
                 </Link>
               </li>
             )

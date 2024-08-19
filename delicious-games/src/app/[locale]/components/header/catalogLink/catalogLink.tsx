@@ -21,7 +21,7 @@ export default function CatalogLink({
     >
       <Link
         href={"/catalog/" + link}
-        className="block pr-2 max-w-[calc(100%-20px)] uppercase overflow-x-hidden text-ellipsis text-[13px]"
+        className="cursor-pointer block pr-2 w-full max-w-[calc(100%-20px)] uppercase overflow-x-hidden text-ellipsis text-[13px]"
       >
         {title}
       </Link>

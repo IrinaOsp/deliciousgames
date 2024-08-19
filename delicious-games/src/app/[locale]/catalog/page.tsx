@@ -29,7 +29,7 @@ export default function Catalog({
 
   const gamesQuery = qs.stringify(
     {
-      fields: ["title", "description", "path"],
+      fields: ["title", "description", "path", "gameTag"],
       populate: {
         price: {
           fields: ["currency", "price"],
@@ -43,6 +43,7 @@ export default function Catalog({
         },
       },
       locale,
+      sort: ["sortingID:asc"],
     },
     {
       encodeValuesOnly: true,
@@ -173,8 +174,8 @@ export default function Catalog({
                 image={el.attributes.images.box.data.attributes.url}
                 price={el.attributes.price[0].price}
                 tax={el.attributes.tax}
-                label={el.attributes.label}
                 path={el.attributes.path}
+                gameTag={el.attributes.gameTag}
               />
             ))
           )}

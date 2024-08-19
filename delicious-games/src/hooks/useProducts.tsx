@@ -26,6 +26,7 @@ export const useProducts = (
               },
             },
             locale,
+            sort: ["sortingID:asc"],
           },
           { encodeValuesOnly: true }
         );
@@ -47,6 +48,7 @@ export const useProducts = (
                 : (el.attributes.images as any)[imgType].data.attributes.url,
             title: el.attributes.title,
             path: el.attributes.path,
+            gameTag: el.attributes.gameTag ?? undefined,
           }));
           setProducts(products);
         }

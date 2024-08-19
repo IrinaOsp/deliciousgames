@@ -8,8 +8,10 @@ export const SearchContext = createContext({});
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
   const pathname = usePathname();
 
@@ -21,7 +23,7 @@ export default function RootLayout({
     >
       <SearchContext.Provider value={{}}>
         <div className="md:w-[calc(100%-240px)] max-w-full">{children}</div>
-        <AsidePanel />
+        <AsidePanel locale={locale} />
       </SearchContext.Provider>
     </div>
   );

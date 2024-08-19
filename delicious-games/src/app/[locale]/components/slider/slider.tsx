@@ -47,6 +47,7 @@ export default function SliderWrapper() {
         },
       },
       locale,
+      sort: ["sortingID:asc"],
     },
     {
       encodeValuesOnly: true,

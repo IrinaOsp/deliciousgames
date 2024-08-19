@@ -5,9 +5,9 @@ export type GameCardInfo = {
   description: string;
   price: number;
   tax?: number;
-  label?: string;
   rating?: number;
   path: string;
+  gameTag?: string;
 };
 
 type ResponseItemMainImg = {
@@ -24,6 +24,7 @@ type ResponseItemMainImg = {
         };
       };
     };
+    gameTag?: string;
   };
 };
 type ResponseItemBoxImg = {
@@ -40,6 +41,7 @@ type ResponseItemBoxImg = {
         };
       };
     };
+    gameTag?: string;
   };
 };
 export type ResponseCatalogItem = {
@@ -58,6 +60,7 @@ export type ResponseCatalogItem = {
       };
     };
     price: [{ id: number; price: number; currency: string }];
+    gameTag?: string;
   };
 };
 
@@ -69,6 +72,7 @@ export type Product = {
   img: string;
   title: string;
   path: string;
+  gameTag?: string;
 };
 
 type BlogImage = {

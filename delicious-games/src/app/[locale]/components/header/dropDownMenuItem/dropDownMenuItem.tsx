@@ -24,7 +24,7 @@ export default function DropDownMenuItem({
       >
         <Link
           href={`/${Routes.CATALOGUE}/${link}`}
-          className="min-w-min font-normal capitalize"
+          className="block min-w-min w-full font-normal capitalize"
         >
           {title.toLowerCase()}
         </Link>

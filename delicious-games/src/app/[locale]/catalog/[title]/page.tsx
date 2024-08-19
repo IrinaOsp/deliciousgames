@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Specification from "./components/specification/specification";
 import GameComponents from "./components/gameComponents/gameComponents";
 import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
@@ -24,7 +25,7 @@ async function getData(path: string, locale: string) {
           $eqi: path,
         },
       },
-      fields: ["title", "description"],
+      fields: ["title", "description", "gameTag"],
       populate: {
         specification: "*",
         techInfo: "*",
@@ -56,6 +57,7 @@ async function getData(path: string, locale: string) {
         gameComponents: "*",
       },
       locale,
+      sort: ["sortingID:asc"],
     },
     {
       encodeValuesOnly: true,
@@ -104,7 +106,36 @@ export default async function DetailedPage({
       <div className="max-w-7xl mx-auto p-5 xl:px-0 brightness-100">
         <section className="mb-11">
           <div className="flex max-sm:flex-col">
-            <div className="sm:w-1/2 h-auto">
+            <div className="sm:w-1/2 h-auto relative ">
+              {data.gameTag && (
+                <div
+                  className={`absolute z-10 top-0 left-0 w-full  bg-transparent text-white text-xs flex items-center justify-end `}
+                >
+                  <span
+                    className={`flex items-center m-2.5 p-2.5 rounded-[20px] ${
+                      data.gameTag.toLowerCase() === "new" ||
+                      data.gameTag.toLowerCase() === "novinka"
+                        ? "bg-green-500"
+                        : "bg-pink-600 px-5"
+                    }`}
+                  >
+                    {(data.gameTag.toLowerCase() === "new" ||
+                      data.gameTag.toLowerCase() === "novinka") && (
+                      <span className="block size-3.5 mr-1">
+                        <Image
+                          src="/icons/tag.svg"
+                          alt="new"
+                          width={14}
+                          height={14}
+                        />
+                      </span>
+                    )}
+                    <b className={`block leading-3 uppercase`}>
+                      {data.gameTag}
+                    </b>
+                  </span>
+                </div>
+              )}
               <StrapiImage
                 src={data.images.box.data.attributes.url}
                 alt={
