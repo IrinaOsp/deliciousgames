@@ -25,7 +25,7 @@ import Recaptcha from "../recaptcha/Recaptcha";
 type FormData = z.infer<typeof shortFormSchema>;
 
 export function ContactForm() {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  // const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSending, setIsSending] = useState<boolean>(false);
   const { t } = useTranslation("contactUs");
 
@@ -41,11 +41,11 @@ export function ContactForm() {
   });
 
   async function onSubmit(data: FormData) {
-    const recaptchaValue = recaptchaRef.current?.getValue();
-    if (!recaptchaValue) {
-      alert(t("captcha"));
-      return;
-    }
+    // const recaptchaValue = recaptchaRef.current?.getValue();
+    // if (!recaptchaValue) {
+    //   alert(t("captcha"));
+    //   return;
+    // }
 
     setIsSending(true);
     const formData = new FormData();
@@ -161,12 +161,12 @@ export function ContactForm() {
           )}
         />
 
-        <div className="flex flex-wrap gap-5 justify-start items-center">
+        {/* <div className="flex flex-wrap gap-5 justify-start items-center">
           <span className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
             {t("captcha")}*
           </span>
           <Recaptcha refCaptcha={recaptchaRef} />
-        </div>
+        </div> */}
 
         <Button
           type="submit"
