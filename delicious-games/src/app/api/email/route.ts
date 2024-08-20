@@ -38,15 +38,16 @@ export async function POST(req: NextRequest) {
       to: process.env.NEXT_PUBLIC_MY_EMAIL,
       subject: `Email from ${username} (${email})`,
       text: `Email from ${username} (${email}) at ${new Date()}: 
-      ${message && `\n\n Message: ${message}`} 
-      ${shippingAddress && `\n\n Shipping address: ${shippingAddress}`} 
-      ${country && `\n\n Country: ${country}`}
+      ${message ? `\n\n Message: ${message}` : ""} 
+      ${shippingAddress ? `\n\n Shipping address: ${shippingAddress}` : ""} 
+      ${country ? `\n\n Country: ${country}` : ""}
       ${
-        reasonOfSalesReturn &&
-        `\n\n Reason of sales return: ${reasonOfSalesReturn}`
+        reasonOfSalesReturn
+          ? `\n\n Reason of sales return: ${reasonOfSalesReturn}`
+          : ""
       }
-      ${boardgameName && `\n\n Boardgame name: ${boardgameName}`}
-      ${detailInfo && `\n\n Detail information: ${detailInfo}`}`,
+      ${boardgameName ? `\n\n Boardgame name: ${boardgameName}` : ""}
+      ${detailInfo ? `\n\n Detail information: ${detailInfo}` : ""}`,
       attachments: attachment ? [attachment] : [],
     };
 

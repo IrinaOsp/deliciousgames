@@ -33,12 +33,12 @@ import { formSchema } from "./validation/schema";
 import { useProducts } from "@/hooks/useProducts";
 import { GAMES } from "@/data/gamesData";
 import { useTranslation } from "react-i18next";
+import Recaptcha from "../recaptcha/Recaptcha";
 
 type FormData = z.infer<typeof formSchema>;
 
 export function ContactFormMissingParts() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [file, setFile] = useState<File | undefined>(undefined);
   const [isSending, setIsSending] = useState<boolean>(false);
   const locale = useParams<{ locale: string }>().locale;
 
@@ -96,6 +96,8 @@ export function ContactFormMissingParts() {
       setIsSending(false);
       console.error("Error submitting form", error);
       alert(t("alertError"));
+    } finally {
+      recaptchaRef.current?.reset();
     }
   }
 
@@ -236,7 +238,11 @@ export function ContactFormMissingParts() {
                 </FormControl>
                 <SelectContent>
                   {(games ? games : GAMES).map((game) => (
-                    <SelectItem key={game.title} value={game.title}>
+                    <SelectItem
+                      key={game.title}
+                      value={game.title}
+                      className="uppercase"
+                    >
                       {game.title}
                     </SelectItem>
                   ))}
@@ -277,8 +283,7 @@ export function ContactFormMissingParts() {
               const newFile = e.target.files?.[0];
 
               if (newFile) {
-                setFile(newFile);
-                field.onChange(file);
+                field.onChange(newFile);
                 contactForm.trigger("image");
               }
             };
@@ -333,11 +338,7 @@ export function ContactFormMissingParts() {
           <span className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
             {t("captcha")}*
           </span>
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
-            size="normal"
-            ref={recaptchaRef}
-          />
+          <Recaptcha refCaptcha={recaptchaRef} />
         </div>
 
         <Button

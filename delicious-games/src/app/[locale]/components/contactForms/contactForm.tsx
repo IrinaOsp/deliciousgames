@@ -20,6 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { shortFormSchema } from "./validation/schema";
 import { useTranslation } from "react-i18next";
+import Recaptcha from "../recaptcha/Recaptcha";
 
 type FormData = z.infer<typeof shortFormSchema>;
 
@@ -164,12 +165,7 @@ export function ContactForm() {
           <span className="text-base block max-w-24 min-[500px]:max-w-[150px] w-full">
             {t("captcha")}*
           </span>
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
-            size="normal"
-            ref={recaptchaRef}
-            onError={(e) => console.log(e)}
-          />
+          <Recaptcha refCaptcha={recaptchaRef} />
         </div>
 
         <Button
