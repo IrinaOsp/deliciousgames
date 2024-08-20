@@ -13,7 +13,6 @@ export default function Recaptcha({
       ref={refCaptcha}
       sitekey={process.env.NEXT_PUBLIC_RECAPCHA_SITE_KEY as string}
       onChange={onCompleteChallenge}
-      onClick={() => console.log("click")}
     />
   );
 }
